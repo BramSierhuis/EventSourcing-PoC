@@ -2,9 +2,9 @@ using WidgetAndCo.Aggregates;
 
 namespace WidgetAndCo;
 
-public interface IAggregateStore<T, TId> where T: AggregateRoot<TId>
+public interface IAggregateStore<T> where T: AggregateRoot
 {
-    Task<bool> Exists(TId aggregateId);
+    Task<bool> Exists(Guid aggregateId);
     Task Save(T aggregate);
-    Task<T> Load(TId aggregateId);
+    Task<T> Load(Guid aggregateId);
 }

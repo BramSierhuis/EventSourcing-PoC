@@ -1,18 +1,22 @@
 using WidgetAndCo.Messages.Commands;
 using WidgetAndCo.Messages.Events;
-using WidgetAndCo.Models;
 
 namespace WidgetAndCo.Aggregates;
 
-public class CustomerAggregate : AggregateRoot<CustomerId>
+public class CustomerAggregate : AggregateRoot
 {
     public string FirstName { get; set; }
     public string LastName { get; set; }
+
+    public CustomerAggregate()
+    {
+    }
 
     public CustomerAggregate(CreateCustomer command)
     {
         Apply<CustomerCreated>(e =>
         {
+            e.CustomerId = Guid.NewGuid();
             e.FirstName = command.FirstName;
             e.LastName = command.LastName;
         });
@@ -23,7 +27,7 @@ public class CustomerAggregate : AggregateRoot<CustomerId>
 
     private void When(CustomerCreated @event)
     {
-        Id = @event.CustomerId;
+        AggregateId = @event.CustomerId;
         FirstName = @event.FirstName;
         LastName = @event.LastName;
     }

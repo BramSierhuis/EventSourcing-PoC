@@ -2,9 +2,9 @@
 
 namespace WidgetAndCo.Aggregates;
 
-public abstract class AggregateRoot<TId>
+public abstract class AggregateRoot
 {
-    public TId Id { get; protected set; }
+    public Guid AggregateId { get; protected set; }
     public int Version { get; private set; }
     private readonly IList<IEvent> _uncommitedEvents;
 
