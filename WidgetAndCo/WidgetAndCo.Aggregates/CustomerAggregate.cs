@@ -59,6 +59,6 @@ public class CustomerAggregate : AggregateRoot
     private void When(CustomerLastNameChanged @event)
     {
         AggregateId = @event.CustomerId;
-        FirstName = @event.LastName;
+        LastName = @event.LastName;
     }
 }

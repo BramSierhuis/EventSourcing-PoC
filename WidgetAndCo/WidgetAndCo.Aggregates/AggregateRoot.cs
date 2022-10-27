@@ -55,5 +55,5 @@ public abstract class AggregateRoot
         _uncommitedEvents.Clear();
     }
 
-    public IEnumerable<IEvent> GetEvents() => _uncommitedEvents;
+    public IEnumerable<IEvent> GetUncommittedEvents() => _uncommitedEvents;
 }

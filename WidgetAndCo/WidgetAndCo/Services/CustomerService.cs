@@ -1,5 +1,7 @@
+using Microsoft.AspNetCore.Mvc;
 using WidgetAndCo.Aggregates;
 using WidgetAndCo.Messages.Commands;
+using WidgetAndCo.Models;
 
 namespace WidgetAndCo.Services;
 
@@ -11,7 +13,19 @@ public class CustomerService : IService
     {
         _store = store;
     }
-    
+
+    public async Task<ActionResult<CustomerDto>> GetByIdAsync(Guid customerId)
+    {
+        var aggregate = await _store.Load(customerId);
+        return new CustomerDto()
+        {
+            CustomerId = aggregate.AggregateId,
+            FirstName = aggregate.FirstName,
+            LastName = aggregate.LastName,
+            Version = aggregate.Version
+        };
+    }
+
     public async Task Handle(object command) => await Handle((dynamic)command);
 
     private async Task Handle(CreateCustomer cmd)

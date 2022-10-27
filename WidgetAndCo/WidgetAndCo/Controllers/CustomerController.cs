@@ -61,9 +61,9 @@ public class CustomerController : ControllerBase
         await _customerService.Handle(command);
     }
     
-    [HttpGet]
-    public async Task<ActionResult<CustomerDto>> GetAll()
+    [HttpGet("{customerId:guid}")]
+    public async Task<ActionResult<CustomerDto>> GetById(Guid customerId)
     {
-        throw new NotImplementedException();
+        return await _customerService.GetByIdAsync(customerId);
     }
 }

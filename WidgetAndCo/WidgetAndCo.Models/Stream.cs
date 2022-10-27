@@ -6,6 +6,7 @@ namespace WidgetAndCo.Models;
 public class Stream
 {
     public Guid Id { get; set; }
+    public Guid AggregateId { get; set; }
     public string Type { get; set; }
     public int Version { get; set; }
     public ICollection<StreamEvent> Events { get; set; }
@@ -14,6 +15,5 @@ public class Stream
 public class StreamEvent
 {
     public string Data { get; set; }
-    public string Type { get; set; }
     public string ClrType { get; set; }
 }

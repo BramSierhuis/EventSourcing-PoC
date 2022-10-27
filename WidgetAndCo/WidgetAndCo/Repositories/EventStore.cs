@@ -26,24 +26,24 @@ public class EventStore<T> : IAggregateStore<T> where T : AggregateRoot
 
     public async Task Save(T aggregate)
     {
-        var events = aggregate.GetEvents()
+        var events = aggregate.GetUncommittedEvents()
             .Select(@event =>
                 new StreamEvent()
                 {
-                    ClrType = @event.GetType().AssemblyQualifiedName,
-                    Data = JsonConvert.SerializeObject(@event),
-                    Type = @event.GetType().Name
+                    ClrType = @event.GetType().AssemblyQualifiedName ?? throw new ArgumentException("Invalid event"),
+                    Data = JsonConvert.SerializeObject(@event)
                 }).ToList();
 
         var stream = new Stream()
         {
+            Id = Guid.NewGuid(),
+            AggregateId = aggregate.AggregateId,
             Type = aggregate.GetType().Name,
-            Id = aggregate.AggregateId,
-            Events = events,
-            Version = aggregate.Version
+            Version = aggregate.Version,
+            Events = events
         };
 
-        var _ = await CreateOrUpdateStream(stream);
+        var _ = await Add(stream);
         
         aggregate.Flush();
     }
@@ -52,13 +52,16 @@ public class EventStore<T> : IAggregateStore<T> where T : AggregateRoot
     {
         var aggregate = (T) Activator.CreateInstance(typeof(T), true);
 
-        var result = await Find(x => x.Id == aggregateId);
+        var result = (await Find(x => x.AggregateId == aggregateId)).ToList();
 
-        if (result.Count() > 1) throw new Exception();
-
-        var events = result.First().Events;
+        var events = new List<StreamEvent>();
+        foreach (var stream in result)
+        {
+            events.AddRange(stream.Events);
+        }
         
-         aggregate.Hydrate(events.Select(e =>
+         
+        aggregate.Hydrate(events.Select(e =>
          {
              var datatype = Type.GetType(e.ClrType);
              var data = JsonConvert.DeserializeObject(e.Data, datatype);
@@ -69,50 +72,15 @@ public class EventStore<T> : IAggregateStore<T> where T : AggregateRoot
         return aggregate;
     }
     
-    private async Task<Stream> Add(Stream entity)
-    {
-        _context.Set<Stream>().Add(entity);
-        await _context.SaveChangesAsync();
-        return entity;
-    }
-    
-    public async Task<IEnumerable<Stream>> Find(Expression<Func<Stream, bool>> expression)
+    private async Task<IEnumerable<Stream>> Find(Expression<Func<Stream, bool>> expression)
     {
         return await _context.Set<Stream>().Where(expression).ToListAsync();
     }
     
-    public async Task<IEnumerable<Stream>> GetAll()
+    private async Task<Stream> Add(Stream newStream)
     {
-        return await _context.Set<Stream>().ToListAsync();
-    }
-    
-    public async Task<Stream> GetById(Guid id)
-    {
-        return await _context.Set<Stream>().FindAsync(id);
-    }
-
-    public async Task<Stream> CreateOrUpdateStream(Stream newStream)
-    {
-        try
-        {
-            var currentStream = await _context.Set<Stream>().Where(x => x.Id == newStream.Id)
-                .FirstAsync();
-
-            foreach (var e in newStream.Events)
-            {
-                currentStream.Events.Add(e);
-            }
-
-            currentStream.Version = newStream.Version;
-
-            //_context.Set<Stream>().Update(currentStream);
-            await _context.SaveChangesAsync();
-        }
-        catch (Exception e)
-        {
-            _context.Set<Stream>().Add(newStream);
-            await _context.SaveChangesAsync();
-        }
+        _context.Set<Stream>().Add(newStream);
+        await _context.SaveChangesAsync();
 
         return newStream;
     }
