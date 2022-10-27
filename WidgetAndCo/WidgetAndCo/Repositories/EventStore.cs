@@ -1,10 +1,8 @@
 using System.Linq.Expressions;
-using System.Text;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using WidgetAndCo.Aggregates;
 using WidgetAndCo.Context;
-using WidgetAndCo.Extensions;
 using WidgetAndCo.Models;
 using Stream = WidgetAndCo.Models.Stream;
 
@@ -17,6 +15,7 @@ public class EventStore<T> : IAggregateStore<T> where T : AggregateRoot
     public EventStore(EventStoreContext context)
     {
         _context = context;
+        _context.Database.EnsureCreated();
     }
 
     public Task<bool> Exists(Guid aggregateId)

@@ -1,13 +1,21 @@
 using Microsoft.Azure.Functions.Worker;
-using Microsoft.Extensions.Logging;
+using Newtonsoft.Json;
+using WidgetAndCo.Functions.Projections;
 using Stream = WidgetAndCo.Models.Stream;
 
 namespace WidgetAndCo.Functions;
 
-public static class EventStoreTrigger
+public class EventStoreTrigger
 {
+    private readonly IEnumerable<IProjection> _projections;
+
+    public EventStoreTrigger(IEnumerable<IProjection> projections)
+    {
+        _projections = projections;
+    }
+
     [Function("EventStoreTrigger")]
-    public static void Run([CosmosDBTrigger(
+    public async Task Run([CosmosDBTrigger(
             databaseName: "EventStore",
             collectionName: "Streams",
             ConnectionStringSetting = "CosmosDbConnectionString",
@@ -15,11 +23,22 @@ public static class EventStoreTrigger
             CreateLeaseCollectionIfNotExists = true)]
         IReadOnlyList<Stream> input, FunctionContext context)
     {
-        var logger = context.GetLogger("EventStoreTrigger");
-        if (input != null && input.Count > 0)
+        var events = new List<object>();
+
+        foreach (var stream in input)
         {
-            logger.LogInformation("Documents modified: " + input.Count);
-            logger.LogInformation("First document Id: " + input[0].Id);
+            foreach (var streamEvent in stream.Events)
+            {
+                var datatype = Type.GetType(streamEvent.ClrType);
+                var data = JsonConvert.DeserializeObject(streamEvent.Data, datatype);
+
+                events.Add(data ?? throw new Exception("Encountered streamEvent without eventdata"));
+            }
+        }
+
+        foreach (var projection in _projections)
+        {
+            await projection.Handle(events);
         }
     }
 }

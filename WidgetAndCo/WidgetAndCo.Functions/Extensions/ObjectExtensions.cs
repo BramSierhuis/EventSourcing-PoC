@@ -1,4 +1,4 @@
-namespace WidgetAndCo.Extensions;
+namespace WidgetAndCo.Functions.Extensions;
 
 public static class ObjectExtensions
 {
