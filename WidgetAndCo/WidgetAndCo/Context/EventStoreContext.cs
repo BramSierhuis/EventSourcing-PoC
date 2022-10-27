@@ -17,8 +17,7 @@ public class EventStoreContext : DbContext
     protected override void OnModelCreating( ModelBuilder builder ) {
         builder.HasDefaultContainer("Streams");
         builder.Entity<Stream>().ToContainer("Streams");
-
-        builder.Entity<Stream>().HasPartitionKey("Id");
+        builder.Entity<Stream>().Property(x => x.Id).ToJsonProperty("id");
     }
     
     public DbSet<Stream> Streams { get; set; }

@@ -8,6 +8,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WidgetAndCo.Messages", "Wid
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WidgetAndCo.Models", "WidgetAndCo.Models\WidgetAndCo.Models.csproj", "{F3BBCB4C-EF96-4257-80FE-33FF8B8F396A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WidgetAndCo.Functions", "WidgetAndCo.Functions\WidgetAndCo.Functions.csproj", "{ED6A03F9-F303-47EB-B6EF-C70BB66D56CB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -30,5 +32,9 @@ Global
 		{F3BBCB4C-EF96-4257-80FE-33FF8B8F396A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F3BBCB4C-EF96-4257-80FE-33FF8B8F396A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F3BBCB4C-EF96-4257-80FE-33FF8B8F396A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ED6A03F9-F303-47EB-B6EF-C70BB66D56CB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ED6A03F9-F303-47EB-B6EF-C70BB66D56CB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ED6A03F9-F303-47EB-B6EF-C70BB66D56CB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ED6A03F9-F303-47EB-B6EF-C70BB66D56CB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
