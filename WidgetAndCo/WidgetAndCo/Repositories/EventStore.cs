@@ -31,7 +31,6 @@ public class EventStore<T> : IAggregateStore<T> where T : AggregateRoot
                 new StreamEvent()
                 {
                     ClrType = @event.GetType().AssemblyQualifiedName,
-                    //Id = Guid.NewGuid(),
                     Data = JsonConvert.SerializeObject(@event),
                     Type = @event.GetType().Name
                 }).ToList();
@@ -44,8 +43,7 @@ public class EventStore<T> : IAggregateStore<T> where T : AggregateRoot
             Version = aggregate.Version
         };
 
-        var _ = await Add(stream);
-        //var _ = await UpdateAsync(stream);
+        var _ = await CreateOrUpdateStream(stream);
         
         aggregate.Flush();
     }
@@ -93,22 +91,29 @@ public class EventStore<T> : IAggregateStore<T> where T : AggregateRoot
         return await _context.Set<Stream>().FindAsync(id);
     }
 
-    public async Task<Stream> UpdateAsync(Stream stream)
+    public async Task<Stream> CreateOrUpdateStream(Stream newStream)
     {
         try
         {
-            var currentStream = await _context.Set<Stream>().AsNoTracking().Where(x => x.Id == stream.Id)
-                .FirstOrDefaultAsync();
-            var updatedEntity = (Stream)currentStream.GetUpdatedObject(stream);
+            var currentStream = await _context.Set<Stream>().Where(x => x.Id == newStream.Id)
+                .FirstAsync();
 
-            _context.Set<Stream>().Update(updatedEntity);
+            foreach (var e in newStream.Events)
+            {
+                currentStream.Events.Add(e);
+            }
+
+            currentStream.Version = newStream.Version;
+
+            //_context.Set<Stream>().Update(currentStream);
+            await _context.SaveChangesAsync();
         }
         catch (Exception e)
         {
-            _context.Set<Stream>().Add(stream);
+            _context.Set<Stream>().Add(newStream);
+            await _context.SaveChangesAsync();
         }
 
-        await _context.SaveChangesAsync();
-        return stream;
+        return newStream;
     }
 }

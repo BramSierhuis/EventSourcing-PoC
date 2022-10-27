@@ -21,6 +21,24 @@ public class CustomerAggregate : AggregateRoot
             e.LastName = command.LastName;
         });
     }
+
+    public void Handle(ChangeCustomerFirstName command)
+    {
+        Apply<CustomerFirstNameChanged>(e =>
+        {
+            e.CustomerId = command.CustomerId;
+            e.FirstName = command.FirstName;
+        });
+    }
+
+    public void Handle(ChangeCustomerLastName command)
+    {
+        Apply<CustomerLastNameChanged>(e =>
+        {
+            e.CustomerId = command.CustomerId;
+            e.LastName = command.LastName;
+        });
+    }
     
     protected override void Mutate(object e)
         => When((dynamic)e);
@@ -30,5 +48,17 @@ public class CustomerAggregate : AggregateRoot
         AggregateId = @event.CustomerId;
         FirstName = @event.FirstName;
         LastName = @event.LastName;
+    }
+    
+    private void When(CustomerFirstNameChanged @event)
+    {
+        AggregateId = @event.CustomerId;
+        FirstName = @event.FirstName;
+    }
+    
+    private void When(CustomerLastNameChanged @event)
+    {
+        AggregateId = @event.CustomerId;
+        FirstName = @event.LastName;
     }
 }

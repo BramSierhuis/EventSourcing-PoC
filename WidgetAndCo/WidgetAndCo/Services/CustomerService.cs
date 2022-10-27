@@ -13,11 +13,6 @@ public class CustomerService : IService
     }
     
     public async Task Handle(object command) => await Handle((dynamic)command);
-    public async Task TestLoad()
-    {
-        var guid = Guid.Parse("94d339f9-e4f1-4414-862a-e022aecf2792");
-        await _store.Load(guid);
-    }
 
     private async Task Handle(CreateCustomer cmd)
     {
@@ -25,6 +20,23 @@ public class CustomerService : IService
 
         var customer = new CustomerAggregate(cmd);
 
+        await _store.Save(customer);
+    }
+
+    private async Task Handle(ChangeCustomerFirstName cmd)
+    {
+        var customer = await _store.Load(cmd.CustomerId);
+
+        customer.Handle(cmd);
+        
+        await _store.Save(customer);
+    }
+    private async Task Handle(ChangeCustomerLastName cmd)
+    {
+        var customer = await _store.Load(cmd.CustomerId);
+
+        customer.Handle(cmd);
+        
         await _store.Save(customer);
     }
 }
