@@ -1,7 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Stream = WidgetAndCo.Models.Stream;
 
-namespace WidgetAndCo.Context;
+namespace CommandHandler.Context;
 
 public class EventStoreContext : DbContext
 {

@@ -1,6 +1,6 @@
 using WidgetAndCo.Aggregates;
 
-namespace WidgetAndCo;
+namespace CommandHandler.Repositories;
 
 public interface IAggregateStore<T> where T: AggregateRoot
 {

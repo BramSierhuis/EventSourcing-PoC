@@ -1,32 +1,26 @@
-using Azure.Messaging.ServiceBus;
 using CommandHandler.Repositories;
 using WidgetAndCo.Aggregates;
 using WidgetAndCo.Models;
 using WidgetAndCo.Models.Commands;
-using WidgetAndCo.Models.Requests;
 
 namespace CommandHandler.Services;
 
 public class CustomerService : ICustomerService
 {
-    private readonly ServiceBusClient _bus;
+    private readonly IAggregateStore<CustomerAggregate> _store;
 
-    public CustomerService(ServiceBusClient bus)
+    public CustomerService(IAggregateStore<CustomerAggregate> store)
     {
-        _bus = bus;
+        _store = store;
     }
 
     public async Task Handle(object command) => await Handle((dynamic)command);
 
-    private async Task Handle(CreateCustomerRequest request)
+    private async Task Handle(CreateCustomer cmd)
     {
-        var createCustomer = new CreateCustomer()
-        {
-            FirstName = request.FirstName,
-            LastName = request.LastName
-        };
-        
-        await _bus.
+        var customer = new CustomerAggregate(cmd);
+
+        await _store.Save(customer);
     }
 
     private async Task Handle(ChangeCustomerFirstName cmd)

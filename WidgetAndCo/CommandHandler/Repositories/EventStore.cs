@@ -1,12 +1,12 @@
 using System.Linq.Expressions;
+using CommandHandler.Context;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using WidgetAndCo.Aggregates;
-using WidgetAndCo.Context;
 using WidgetAndCo.Models;
 using Stream = WidgetAndCo.Models.Stream;
 
-namespace WidgetAndCo.Repositories;
+namespace CommandHandler.Repositories;
 
 public class EventStore<T> : IAggregateStore<T> where T : AggregateRoot
 {

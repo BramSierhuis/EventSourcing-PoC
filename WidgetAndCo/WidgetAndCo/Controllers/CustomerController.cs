@@ -1,3 +1,4 @@
+using CommandHandler.Services;
 using Microsoft.AspNetCore.Mvc;
 using WidgetAndCo.Models;
 using WidgetAndCo.Models.Commands;
@@ -24,13 +25,7 @@ public class CustomerController : ControllerBase
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public async Task Create([FromBody] CreateCustomerRequest request)
     {
-        var createCustomer = new CreateCustomer()
-        {
-            FirstName = request.FirstName,
-            LastName = request.LastName
-        };
-
-        await _customerService.Handle(createCustomer);
+        await _customerService.Handle(request);
     }
     
     [HttpPut("{customerId:guid}/firstname")]

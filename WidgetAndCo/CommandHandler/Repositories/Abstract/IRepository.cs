@@ -1,7 +1,7 @@
 using System.Linq.Expressions;
 using Stream = WidgetAndCo.Models.Stream;
 
-namespace WidgetAndCo.Repositories.Abstract;
+namespace CommandHandler.Repositories.Abstract;
 
 public interface IRepository<T> where T : Stream
 {
