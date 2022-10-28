@@ -17,8 +17,12 @@ public class CosmosReadModelContext : DbContext
     
     protected override void OnModelCreating( ModelBuilder builder ) {
         builder.Entity<CustomerReadModel>().ToContainer("CustomerReadModel");
-        builder.Entity<CustomerReadModel>().Property(x => x.Id).ToJsonProperty("id");
+        builder.Entity<CustomerReadModel>().Property(x => x.Id).ToJsonProperty("id");        
+        
+        builder.Entity<CustomerReadModel>().ToContainer("ProductReadModel");
+        builder.Entity<ProductReadModel>().Property(x => x.Id).ToJsonProperty("id");
     }
     
     public DbSet<CustomerReadModel> Customers { get; set; }
+    public DbSet<ProductReadModel> Products { get; set; }
 }

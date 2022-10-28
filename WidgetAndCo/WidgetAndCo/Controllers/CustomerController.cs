@@ -11,9 +11,9 @@ namespace WidgetAndCo.Controllers;
 public class CustomerController : ControllerBase
 {
     private readonly ILogger<CustomerController> _logger;
-    private readonly IService _customerService;
+    private readonly ICustomerService _customerService;
     
-    public CustomerController(ILogger<CustomerController> logger, IService customerService)
+    public CustomerController(ILogger<CustomerController> logger, ICustomerService customerService)
     {
         _logger = logger;
         _customerService = customerService;
@@ -59,11 +59,5 @@ public class CustomerController : ControllerBase
         };
 
         await _customerService.Handle(command);
-    }
-    
-    [HttpGet("{customerId:guid}")]
-    public async Task<ActionResult<CustomerDto>> GetById(Guid customerId)
-    {
-        return await _customerService.GetByIdAsync(customerId);
     }
 }

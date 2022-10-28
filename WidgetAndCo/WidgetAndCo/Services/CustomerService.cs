@@ -5,7 +5,7 @@ using WidgetAndCo.Models;
 
 namespace WidgetAndCo.Services;
 
-public class CustomerService : IService
+public class CustomerService : ICustomerService
 {
     private readonly IAggregateStore<CustomerAggregate> _store;
 

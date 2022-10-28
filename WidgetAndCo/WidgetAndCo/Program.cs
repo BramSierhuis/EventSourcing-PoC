@@ -10,7 +10,9 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<EventStoreContext>();
 
 builder.Services.AddTransient<IAggregateStore<CustomerAggregate>, EventStore<CustomerAggregate>>();
-builder.Services.AddTransient<IService, CustomerService>();
+builder.Services.AddTransient<IAggregateStore<ProductAggregate>, EventStore<ProductAggregate>>();
+builder.Services.AddTransient<ICustomerService, CustomerService>();
+builder.Services.AddTransient<IProductService, ProductService>();
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
