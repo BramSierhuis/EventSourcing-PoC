@@ -1,18 +1,24 @@
+using Microsoft.AspNetCore.Mvc;
 using WidgetAndCo.Extensions;
 using WidgetAndCo.Infrastructure;
 using WidgetAndCo.Models.Commands;
+using WidgetAndCo.Models.ReadModels;
 using WidgetAndCo.Models.Requests;
+using WidgetAndCo.Repositories;
 
 namespace WidgetAndCo.Services;
 
 public class CustomerService : ICustomerService
 {
+    private readonly CustomerRepository _customerRepository;
+    
     private readonly IMessageBusFactory _busFactory;
     private const string QueueName = "customerqueue";
 
-    public CustomerService(IMessageBusFactory busFactory)
+    public CustomerService(IMessageBusFactory busFactory, CustomerRepository customerRepository)
     {
         _busFactory = busFactory;
+        _customerRepository = customerRepository;
     }
     
     public async Task CreateCustomer(CreateCustomerRequest request)
@@ -45,5 +51,10 @@ public class CustomerService : ICustomerService
         };
 
         await _busFactory.GetClient(QueueName).PublishMessageAsync(command.GetQueueItem());
+    }
+
+    public async Task<IEnumerable<CustomerReadModel>> GetAll()
+    {
+        return await _customerRepository.GetAll();
     }
 }

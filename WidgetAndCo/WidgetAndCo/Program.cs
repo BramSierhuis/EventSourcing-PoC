@@ -1,9 +1,18 @@
+using WidgetAndCo;
+using WidgetAndCo.Contexts;
 using WidgetAndCo.Extensions;
+using WidgetAndCo.Models.ReadModels;
+using WidgetAndCo.Repositories;
 using WidgetAndCo.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+builder.Services.AddDbContext<CosmosReadModelContext>();
+builder.Services.AddScoped<CustomerRepository>();
+builder.Services.AddScoped<IRepository<ProductReadModel>, ProductRepository>();
+builder.Services.AddScoped<IRepository<OrderReadModel>, OrderRepository>();
+
 builder.Services.AddAzureServiceBusFactory();
 
 builder.Services.AddTransient<ICustomerService, CustomerService>();
