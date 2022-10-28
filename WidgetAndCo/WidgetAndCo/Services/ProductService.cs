@@ -1,6 +1,7 @@
 using WidgetAndCo.Extensions;
 using WidgetAndCo.Infrastructure;
 using WidgetAndCo.Models.Commands;
+using WidgetAndCo.Models.Commands.Products;
 using WidgetAndCo.Models.Requests;
 
 namespace WidgetAndCo.Services;
@@ -43,6 +44,17 @@ public class ProductService : IProductService
         {
             AggregateId = productId,
             Price = request.Price
+        };
+        
+        await _busFactory.GetClient(QueueName).PublishMessageAsync(command.GetQueueItem());
+    }
+
+    public async Task ChangeProductStock(ChangeProductStockRequest request, Guid productId)
+    {
+        var command = new ChangeProductStock()
+        {
+            AggregateId = productId,
+            StockChange = request.StockChange
         };
         
         await _busFactory.GetClient(QueueName).PublishMessageAsync(command.GetQueueItem());

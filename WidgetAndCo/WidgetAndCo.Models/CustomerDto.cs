@@ -1,6 +1,6 @@
 namespace WidgetAndCo.Models;
 
-public class CustomerDto
+public class ustomerDto
 {
     public Guid CustomerId { get; set; }
     public string FirstName { get; set; }

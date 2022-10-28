@@ -42,4 +42,12 @@ public class ProductController : ControllerBase
     {
         await _productService.ChangeProductCost(request, productId);
     }
+    
+    [HttpPut("{productId:guid}/stock")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    public async Task ChangeProductStock(Guid productId, [FromBody] ChangeProductStockRequest request)
+    {
+        await _productService.ChangeProductStock(request, productId);
+    }
 }

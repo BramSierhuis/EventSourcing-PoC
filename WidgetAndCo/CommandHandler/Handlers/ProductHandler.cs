@@ -1,6 +1,7 @@
 using CommandHandler.Repositories;
 using WidgetAndCo.Aggregates;
 using WidgetAndCo.Models.Commands;
+using WidgetAndCo.Models.Commands.Products;
 
 namespace CommandHandler.Services;
 
@@ -32,6 +33,15 @@ public class ProductHandler : IProductHandler
     }
     
     private async Task Process(ChangeProductCost cmd)
+    {
+        var aggregate = await _store.Load(cmd.AggregateId);
+
+        aggregate.Handle(cmd);
+        
+        await _store.Save(aggregate);
+    }
+    
+    private async Task Process(ChangeProductStock cmd)
     {
         var aggregate = await _store.Load(cmd.AggregateId);
 

@@ -1,5 +1,7 @@
 using WidgetAndCo.Models.Commands;
+using WidgetAndCo.Models.Commands.Products;
 using WidgetAndCo.Models.Events;
+using WidgetAndCo.Models.Events.Products;
 
 namespace WidgetAndCo.Aggregates;
 
@@ -7,6 +9,7 @@ public class ProductAggregate : AggregateRoot
 {
     public string ProductName { get; set; }
     public double Price { get; set; }
+    public int Stock { get; set; }
 
     public ProductAggregate()
     {
@@ -39,6 +42,15 @@ public class ProductAggregate : AggregateRoot
             e.Price = command.Price;
         });
     }
+
+    public void Handle(ChangeProductStock command)
+    {
+        Apply<ProductStockChanged>(e =>
+        {
+            e.AggregateId = command.AggregateId;
+            e.StockChange = command.StockChange;
+        });
+    }
     
     protected override void Mutate(object e)
         => When((dynamic)e);
@@ -60,5 +72,11 @@ public class ProductAggregate : AggregateRoot
     {
         AggregateId = @event.AggregateId;
         Price = @event.Price;
+    }
+    
+    private void When(ProductStockChanged @event)
+    {
+        AggregateId = @event.AggregateId;
+        Stock += @event.StockChange;
     }
 }

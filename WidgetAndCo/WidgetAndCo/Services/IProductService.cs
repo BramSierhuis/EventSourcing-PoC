@@ -8,4 +8,5 @@ public interface IProductService
     Task CreateProduct(CreateProductRequest request);
     Task ChangeProductName(ChangeProductNameRequest request, Guid productId);
     Task ChangeProductCost(ChangeProductCostRequest request, Guid productId);
+    Task ChangeProductStock(ChangeProductStockRequest request, Guid productId);
 }
