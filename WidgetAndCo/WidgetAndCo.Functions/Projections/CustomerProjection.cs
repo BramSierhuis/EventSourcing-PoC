@@ -48,4 +48,10 @@ public class CustomerProjection : IProjection
             customer.LastName = e.LastName;
         });
     }
+    
+    //Discard any events not mapped
+    private async Task Update(object e)
+    {
+        await Task.CompletedTask;
+    }
 }
