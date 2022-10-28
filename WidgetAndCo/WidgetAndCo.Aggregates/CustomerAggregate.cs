@@ -16,7 +16,7 @@ public class CustomerAggregate : AggregateRoot
     {
         Apply<CustomerCreated>(e =>
         {
-            e.CustomerId = Guid.NewGuid();
+            e.AggregateId = Guid.NewGuid();
             e.FirstName = command.FirstName;
             e.LastName = command.LastName;
         });
@@ -26,7 +26,7 @@ public class CustomerAggregate : AggregateRoot
     {
         Apply<CustomerFirstNameChanged>(e =>
         {
-            e.CustomerId = command.CustomerId;
+            e.AggregateId = command.AggregateId;
             e.FirstName = command.FirstName;
         });
     }
@@ -35,7 +35,7 @@ public class CustomerAggregate : AggregateRoot
     {
         Apply<CustomerLastNameChanged>(e =>
         {
-            e.CustomerId = command.CustomerId;
+            e.AggregateId = command.AggregateId;
             e.LastName = command.LastName;
         });
     }
@@ -45,20 +45,20 @@ public class CustomerAggregate : AggregateRoot
 
     private void When(CustomerCreated @event)
     {
-        AggregateId = @event.CustomerId;
+        AggregateId = @event.AggregateId;
         FirstName = @event.FirstName;
         LastName = @event.LastName;
     }
     
     private void When(CustomerFirstNameChanged @event)
     {
-        AggregateId = @event.CustomerId;
+        AggregateId = @event.AggregateId;
         FirstName = @event.FirstName;
     }
     
     private void When(CustomerLastNameChanged @event)
     {
-        AggregateId = @event.CustomerId;
+        AggregateId = @event.AggregateId;
         LastName = @event.LastName;
     }
 }

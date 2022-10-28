@@ -40,7 +40,7 @@ public class CustomerController : ControllerBase
     {
         var command = new ChangeCustomerFirstName()
         {
-            CustomerId = customerId,
+            AggregateId = customerId,
             FirstName = request.FirstName
         };
 
@@ -54,7 +54,7 @@ public class CustomerController : ControllerBase
     {
         var command = new ChangeCustomerLastName()
         {
-            CustomerId = customerId,
+            AggregateId = customerId,
             LastName = request.LastName
         };
 

@@ -27,7 +27,7 @@ public class ProductService : IProductService
 
     private async Task Handle(ChangeProductName cmd)
     {
-        var aggregate = await _store.Load(cmd.ProductId);
+        var aggregate = await _store.Load(cmd.AggregateId);
 
         aggregate.Handle(cmd);
         
@@ -36,7 +36,7 @@ public class ProductService : IProductService
     
     private async Task Handle(ChangeProductCost cmd)
     {
-        var aggregate = await _store.Load(cmd.ProductId);
+        var aggregate = await _store.Load(cmd.AggregateId);
 
         aggregate.Handle(cmd);
         

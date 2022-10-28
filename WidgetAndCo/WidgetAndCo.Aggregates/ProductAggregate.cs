@@ -16,7 +16,7 @@ public class ProductAggregate : AggregateRoot
     {
         Apply<ProductCreated>(e =>
         {
-            e.ProductId = Guid.NewGuid();
+            e.AggregateId = Guid.NewGuid();
             e.ProductName = command.ProductName;
             e.Price = command.Price;
         });
@@ -26,7 +26,7 @@ public class ProductAggregate : AggregateRoot
     {
         Apply<ProductNameChanged>(e =>
         {
-            e.ProductId = command.ProductId;
+            e.AggregateId = command.AggregateId;
             e.ProductName = command.ProductName;
         });
     }
@@ -35,7 +35,7 @@ public class ProductAggregate : AggregateRoot
     {
         Apply<ProductCostChanged>(e =>
         {
-            e.ProductId = command.ProductId;
+            e.AggregateId = command.AggregateId;
             e.Price = command.Price;
         });
     }
@@ -45,20 +45,20 @@ public class ProductAggregate : AggregateRoot
 
     private void When(ProductCreated @event)
     {
-        AggregateId = @event.ProductId;
+        AggregateId = @event.AggregateId;
         ProductName = @event.ProductName;
         Price = @event.Price;
     }
     
     private void When(ProductNameChanged @event)
     {
-        AggregateId = @event.ProductId;
+        AggregateId = @event.AggregateId;
         ProductName = @event.ProductName;
     }
     
     private void When(ProductCostChanged @event)
     {
-        AggregateId = @event.ProductId;
+        AggregateId = @event.AggregateId;
         Price = @event.Price;
     }
 }

@@ -1,8 +1,7 @@
 namespace WidgetAndCo.Messages.Events;
 
-public class CustomerCreated : IEvent
+public class CustomerCreated : BaseEvent
 {
-    public Guid CustomerId { get; set; }
     public string FirstName { get; set; }
     public string LastName { get; set; }
 }

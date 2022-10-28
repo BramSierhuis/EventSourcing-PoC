@@ -25,7 +25,7 @@ public class ProductProjection : IProjection
     {
         var entity = new ProductReadModel()
         {
-            Id = e.ProductId,
+            Id = e.AggregateId,
             Price = e.Price,
             ProductName = e.ProductName
         };
@@ -35,7 +35,7 @@ public class ProductProjection : IProjection
 
     private async Task Update(ProductNameChanged e)
     {
-        await _repository.GetAndUpdateEntity(e.ProductId, entity =>
+        await _repository.GetAndUpdateEntity(e.AggregateId, entity =>
         {
             entity.ProductName = e.ProductName;
         });
@@ -43,7 +43,7 @@ public class ProductProjection : IProjection
 
     private async Task Update(ProductCostChanged e)
     {
-        await _repository.GetAndUpdateEntity(e.ProductId, entity =>
+        await _repository.GetAndUpdateEntity(e.AggregateId, entity =>
         {
             entity.Price = e.Price;
         });

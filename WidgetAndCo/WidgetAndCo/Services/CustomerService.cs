@@ -39,7 +39,7 @@ public class CustomerService : ICustomerService
 
     private async Task Handle(ChangeCustomerFirstName cmd)
     {
-        var customer = await _store.Load(cmd.CustomerId);
+        var customer = await _store.Load(cmd.AggregateId);
 
         customer.Handle(cmd);
         
@@ -47,7 +47,7 @@ public class CustomerService : ICustomerService
     }
     private async Task Handle(ChangeCustomerLastName cmd)
     {
-        var customer = await _store.Load(cmd.CustomerId);
+        var customer = await _store.Load(cmd.AggregateId);
 
         customer.Handle(cmd);
         

@@ -40,7 +40,7 @@ public class ProductController : ControllerBase
     {
         var command = new ChangeProductName()
         {
-            ProductId = productId,
+            AggregateId = productId,
             ProductName = request.ProductName,
         };
 
@@ -54,7 +54,7 @@ public class ProductController : ControllerBase
     {
         var command = new ChangeProductCost()
         {
-            ProductId = productId,
+            AggregateId = productId,
             Price = request.Price
         };
 

@@ -25,7 +25,7 @@ public class CustomerProjection : IProjection
     {
         var customer = new CustomerReadModel()
         {
-            Id = e.CustomerId,
+            Id = e.AggregateId,
             FirstName = e.FirstName,
             LastName = e.LastName
         };
@@ -35,7 +35,7 @@ public class CustomerProjection : IProjection
 
     private async Task Update(CustomerFirstNameChanged e)
     {
-        await _repository.GetAndUpdateEntity(e.CustomerId, customer =>
+        await _repository.GetAndUpdateEntity(e.AggregateId, customer =>
         {
             customer.FirstName = e.FirstName;
         });
@@ -43,7 +43,7 @@ public class CustomerProjection : IProjection
 
     private async Task Update(CustomerLastNameChanged e)
     {
-        await _repository.GetAndUpdateEntity(e.CustomerId, customer =>
+        await _repository.GetAndUpdateEntity(e.AggregateId, customer =>
         {
             customer.LastName = e.LastName;
         });
