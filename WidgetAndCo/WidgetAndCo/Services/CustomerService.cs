@@ -30,8 +30,6 @@ public class CustomerService : ICustomerService
 
     private async Task Handle(CreateCustomer cmd)
     {
-        //TODO: Implement exists check
-
         var customer = new CustomerAggregate(cmd);
 
         await _store.Save(customer);
