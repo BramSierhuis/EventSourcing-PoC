@@ -1,5 +1,5 @@
-using WidgetAndCo.Messages.Commands;
-using WidgetAndCo.Messages.Events;
+using WidgetAndCo.Models.Commands;
+using WidgetAndCo.Models.Events;
 
 namespace WidgetAndCo.Aggregates;
 

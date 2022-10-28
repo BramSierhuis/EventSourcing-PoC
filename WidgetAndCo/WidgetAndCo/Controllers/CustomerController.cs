@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
-using WidgetAndCo.Messages.Commands;
 using WidgetAndCo.Models;
+using WidgetAndCo.Models.Commands;
 using WidgetAndCo.Models.Requests;
 using WidgetAndCo.Services;
 

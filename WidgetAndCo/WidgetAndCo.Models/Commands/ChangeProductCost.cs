@@ -1,4 +1,4 @@
-namespace WidgetAndCo.Messages.Commands;
+namespace WidgetAndCo.Models.Commands;
 
 public class ChangeProductCost : ICommand
 {

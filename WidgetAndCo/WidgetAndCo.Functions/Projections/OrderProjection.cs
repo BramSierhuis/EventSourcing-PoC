@@ -1,14 +1,14 @@
 using WidgetAndCo.Functions.Repositories;
-using WidgetAndCo.Models.Events;
+using WidgetAndCo.Models.Events.Orders;
 using WidgetAndCo.Models.ReadModels;
 
 namespace WidgetAndCo.Functions.Projections;
 
-public class ProductProjection : IProjection
+public class OrderProjection : IProjection
 {
-    private readonly IRepository<ProductReadModel> _repository;
+    private readonly IRepository<OrderReadModel> _repository;
 
-    public ProductProjection(IRepository<ProductReadModel> repository)
+    public OrderProjection(IRepository<OrderReadModel> repository)
     {
         _repository = repository;
     }
@@ -21,34 +21,27 @@ public class ProductProjection : IProjection
         }
     }
 
-    private async Task Update(ProductCreated e)
+    private async Task Update(OrderCreated e)
     {
-        var entity = new ProductReadModel()
+        var entity = new OrderReadModel()
         {
             Id = e.AggregateId,
-            Price = e.Price,
-            ProductName = e.ProductName
+            CustomerId = e.CustomerId,
+            OrderItems = e.OrderItems,
+            OrderDate = e.OrderDate
         };
         
         await _repository.AddEntity(entity);
     }
 
-    private async Task Update(ProductNameChanged e)
+    private async Task Update(OrderShipped e)
     {
         await _repository.GetAndUpdateEntity(e.AggregateId, entity =>
         {
-            entity.ProductName = e.ProductName;
+            entity.ShippingDate = e.ShippingDate;
         });
     }
 
-    private async Task Update(ProductCostChanged e)
-    {
-        await _repository.GetAndUpdateEntity(e.AggregateId, entity =>
-        {
-            entity.Price = e.Price;
-        });
-    }
-    
     //Discard any events not mapped
     private async Task Update(object e)
     {

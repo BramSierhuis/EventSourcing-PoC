@@ -21,8 +21,12 @@ public class CosmosReadModelContext : DbContext
         
         builder.Entity<ProductReadModel>().ToContainer("ProductReadModel");
         builder.Entity<ProductReadModel>().Property(x => x.Id).ToJsonProperty("id");
+        
+        builder.Entity<OrderReadModel>().ToContainer("OrderReadModel");
+        builder.Entity<OrderReadModel>().Property(x => x.Id).ToJsonProperty("id");
     }
     
     public DbSet<CustomerReadModel> Customers { get; set; }
     public DbSet<ProductReadModel> Products { get; set; }
+    public DbSet<OrderReadModel> Orders { get; set; }
 }

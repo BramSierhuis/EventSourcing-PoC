@@ -11,9 +11,12 @@ var host = new HostBuilder()
     {
         x.AddDbContext<CosmosReadModelContext>();
         x.AddScoped<IRepository<CustomerReadModel>, CustomerRepository>();
-        x.AddScoped<IProjection, CustomerProjection>();        
         x.AddScoped<IRepository<ProductReadModel>, ProductRepository>();
+        x.AddScoped<IRepository<OrderReadModel>, OrderRepository>();
+
+        x.AddScoped<IProjection, CustomerProjection>();        
         x.AddScoped<IProjection, ProductProjection>();
+        x.AddScoped<IProjection, OrderProjection>();
     })
     .Build();
 

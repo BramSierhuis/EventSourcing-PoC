@@ -1,5 +1,5 @@
 using WidgetAndCo.Functions.Repositories;
-using WidgetAndCo.Messages.Events;
+using WidgetAndCo.Models.Events;
 using WidgetAndCo.Models.ReadModels;
 
 namespace WidgetAndCo.Functions.Projections;

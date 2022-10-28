@@ -1,4 +1,4 @@
-﻿using WidgetAndCo.Messages.Events;
+﻿using WidgetAndCo.Models.Events;
 
 namespace WidgetAndCo.Aggregates;
 

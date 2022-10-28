@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using WidgetAndCo.Aggregates;
-using WidgetAndCo.Messages.Commands;
 using WidgetAndCo.Models;
+using WidgetAndCo.Models.Commands;
 
 namespace WidgetAndCo.Services;
 
@@ -18,8 +18,6 @@ public class ProductService : IProductService
 
     private async Task Handle(CreateProduct cmd)
     {
-        //TODO: Implement exists check
-
         var aggregate = new ProductAggregate(cmd);
 
         await _store.Save(aggregate);

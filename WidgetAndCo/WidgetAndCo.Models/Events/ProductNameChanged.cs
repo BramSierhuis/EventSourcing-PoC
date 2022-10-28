@@ -1,4 +1,4 @@
-namespace WidgetAndCo.Messages.Events;
+namespace WidgetAndCo.Models.Events;
 
 public class ProductNameChanged : BaseEvent
 {

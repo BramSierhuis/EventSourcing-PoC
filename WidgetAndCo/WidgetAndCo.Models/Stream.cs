@@ -1,5 +1,4 @@
 using System.ComponentModel.DataAnnotations.Schema;
-using WidgetAndCo.Messages.Events;
 
 namespace WidgetAndCo.Models;
 

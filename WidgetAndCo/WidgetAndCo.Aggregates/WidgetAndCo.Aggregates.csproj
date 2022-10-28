@@ -7,7 +7,6 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\WidgetAndCo.Messages\WidgetAndCo.Messages.csproj" />
       <ProjectReference Include="..\WidgetAndCo.Models\WidgetAndCo.Models.csproj" />
     </ItemGroup>
 

@@ -7,10 +7,6 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\WidgetAndCo.Messages\WidgetAndCo.Messages.csproj" />
-    </ItemGroup>
-
-    <ItemGroup>
       <Folder Include="Entities" />
       <Folder Include="Responses" />
     </ItemGroup>

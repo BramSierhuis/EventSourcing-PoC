@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using WidgetAndCo.Aggregates;
-using WidgetAndCo.Messages.Commands;
 using WidgetAndCo.Models;
+using WidgetAndCo.Models.Commands;
 
 namespace WidgetAndCo.Services;
 
