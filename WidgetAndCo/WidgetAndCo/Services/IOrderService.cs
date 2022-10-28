@@ -1,6 +1,9 @@
-namespace CommandHandler.Services;
+using WidgetAndCo.Models.Requests;
 
-public interface IOrderService : IService
+namespace WidgetAndCo.Services;
+
+public interface IOrderService
 {
-    
+    public Task CreateOrder(CreateOrderRequest request);
+    public Task ShipOrder(Guid orderId);
 }

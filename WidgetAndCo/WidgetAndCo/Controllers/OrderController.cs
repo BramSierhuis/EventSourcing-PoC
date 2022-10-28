@@ -1,6 +1,4 @@
 using Microsoft.AspNetCore.Mvc;
-using WidgetAndCo.Models;
-using WidgetAndCo.Models.Commands.Orders;
 using WidgetAndCo.Models.Requests;
 using WidgetAndCo.Services;
 
@@ -24,14 +22,7 @@ public class OrderController : ControllerBase
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public async Task Create([FromBody] CreateOrderRequest request)
     {
-        var command = new CreateOrder()
-        {
-            CustomerId = request.CustomerId,
-            OrderItems = request.OrderItems,
-            OrderDate = DateTime.Now,
-        };
-
-        await _orderService.Handle(command);
+        await _orderService.CreateOrder(request);
     }
     
     [HttpPost("{orderId:guid}/ship")]
@@ -39,11 +30,6 @@ public class OrderController : ControllerBase
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public async Task ShipOrder(Guid orderId)
     {
-        var command = new ShipOrder()
-        {
-            AggregateId = orderId,
-        };
-
-        await _orderService.Handle(command);
+        await _orderService.ShipOrder(orderId);
     }
 }

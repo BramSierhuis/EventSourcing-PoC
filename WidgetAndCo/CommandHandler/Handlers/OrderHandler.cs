@@ -4,25 +4,25 @@ using WidgetAndCo.Models.Commands.Orders;
 
 namespace CommandHandler.Services;
 
-public class OrderService : IOrderService
+public class OrderHandler : IOrderHandler
 {
     private readonly IAggregateStore<OrderAggregate> _store;
 
-    public OrderService(IAggregateStore<OrderAggregate> store)
+    public OrderHandler(IAggregateStore<OrderAggregate> store)
     {
         _store = store;
     }
 
-    public async Task Handle(object command) => await Handle((dynamic)command);
+    public async Task Handle(object command) => await Process((dynamic)command);
 
-    private async Task Handle(CreateOrder cmd)
+    private async Task Process(CreateOrder cmd)
     {
         var aggregate = new OrderAggregate(cmd);
 
         await _store.Save(aggregate);
     }
 
-    private async Task Handle(ShipOrder cmd)
+    private async Task Process(ShipOrder cmd)
     {
         var aggregate = await _store.Load(cmd.AggregateId);
 

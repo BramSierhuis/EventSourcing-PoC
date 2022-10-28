@@ -4,25 +4,25 @@ using WidgetAndCo.Models.Commands;
 
 namespace CommandHandler.Services;
 
-public class ProductService : IProductService
+public class ProductHandler : IProductHandler
 {
     private readonly IAggregateStore<ProductAggregate> _store;
 
-    public ProductService(IAggregateStore<ProductAggregate> store)
+    public ProductHandler(IAggregateStore<ProductAggregate> store)
     {
         _store = store;
     }
 
-    public async Task Handle(object command) => await Handle((dynamic)command);
+    public async Task Handle(object command) => await Process((dynamic)command);
 
-    private async Task Handle(CreateProduct cmd)
+    private async Task Process(CreateProduct cmd)
     {
         var aggregate = new ProductAggregate(cmd);
 
         await _store.Save(aggregate);
     }
 
-    private async Task Handle(ChangeProductName cmd)
+    private async Task Process(ChangeProductName cmd)
     {
         var aggregate = await _store.Load(cmd.AggregateId);
 
@@ -31,7 +31,7 @@ public class ProductService : IProductService
         await _store.Save(aggregate);
     }
     
-    private async Task Handle(ChangeProductCost cmd)
+    private async Task Process(ChangeProductCost cmd)
     {
         var aggregate = await _store.Load(cmd.AggregateId);
 

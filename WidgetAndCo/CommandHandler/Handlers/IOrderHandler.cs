@@ -1,6 +1,6 @@
 namespace CommandHandler.Services;
 
-public interface IOrderService : IService
+public interface IOrderHandler : IHandler
 {
     
 }

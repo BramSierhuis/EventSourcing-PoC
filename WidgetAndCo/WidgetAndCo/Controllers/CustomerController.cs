@@ -1,7 +1,4 @@
-using CommandHandler.Services;
 using Microsoft.AspNetCore.Mvc;
-using WidgetAndCo.Models;
-using WidgetAndCo.Models.Commands;
 using WidgetAndCo.Models.Requests;
 using WidgetAndCo.Services;
 
@@ -25,7 +22,7 @@ public class CustomerController : ControllerBase
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public async Task Create([FromBody] CreateCustomerRequest request)
     {
-        await _customerService.Handle(request);
+        await _customerService.CreateCustomer(request);
     }
     
     [HttpPut("{customerId:guid}/firstname")]
@@ -33,13 +30,7 @@ public class CustomerController : ControllerBase
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public async Task ChangeFirstName(Guid customerId, [FromBody] ChangeFirstNameRequest request)
     {
-        var command = new ChangeCustomerFirstName()
-        {
-            AggregateId = customerId,
-            FirstName = request.FirstName
-        };
-
-        await _customerService.Handle(command);
+        await _customerService.ChangeFirstName(request, customerId);
     }
     
     [HttpPut("{customerId:guid}/lastname")]
@@ -47,12 +38,6 @@ public class CustomerController : ControllerBase
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public async Task ChangeLastName(Guid customerId, [FromBody] ChangeLastNameRequest request)
     {
-        var command = new ChangeCustomerLastName()
-        {
-            AggregateId = customerId,
-            LastName = request.LastName
-        };
-
-        await _customerService.Handle(command);
+        await _customerService.ChangeLastName(request, customerId);
     }
 }

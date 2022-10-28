@@ -1,33 +1,39 @@
-using CommandHandler.Repositories;
-using WidgetAndCo.Aggregates;
+using WidgetAndCo.Extensions;
+using WidgetAndCo.Infrastructure;
 using WidgetAndCo.Models.Commands.Orders;
+using WidgetAndCo.Models.Requests;
 
-namespace CommandHandler.Services;
+namespace WidgetAndCo.Services;
 
 public class OrderService : IOrderService
 {
-    private readonly IAggregateStore<OrderAggregate> _store;
+    private readonly IMessageBusFactory _busFactory;
+    private const string QueueName = "orderqueue";
 
-    public OrderService(IAggregateStore<OrderAggregate> store)
+    public OrderService(IMessageBusFactory busFactory)
     {
-        _store = store;
+        _busFactory = busFactory;
     }
-
-    public async Task Handle(object command) => await Handle((dynamic)command);
-
-    private async Task Handle(CreateOrder cmd)
+    
+    public async Task CreateOrder(CreateOrderRequest request)
     {
-        var aggregate = new OrderAggregate(cmd);
-
-        await _store.Save(aggregate);
-    }
-
-    private async Task Handle(ShipOrder cmd)
-    {
-        var aggregate = await _store.Load(cmd.AggregateId);
-
-        aggregate.Handle(cmd);
+        var command = new CreateOrder()
+        {
+            CustomerId = request.CustomerId,
+            OrderItems = request.OrderItems,
+            OrderDate = DateTime.Now,
+        };
         
-        await _store.Save(aggregate);
+        await _busFactory.GetClient(QueueName).PublishMessageAsync(command.GetQueueItem());
+    }
+
+    public async Task ShipOrder(Guid orderId)
+    {
+        var command = new ShipOrder()
+        {
+            AggregateId = orderId,
+        };
+        
+        await _busFactory.GetClient(QueueName).PublishMessageAsync(command.GetQueueItem());
     }
 }

@@ -1,42 +1,50 @@
-using CommandHandler.Repositories;
-using WidgetAndCo.Aggregates;
+using WidgetAndCo.Extensions;
+using WidgetAndCo.Infrastructure;
 using WidgetAndCo.Models.Commands;
+using WidgetAndCo.Models.Requests;
 
-namespace CommandHandler.Services;
+namespace WidgetAndCo.Services;
 
 public class ProductService : IProductService
 {
-    private readonly IAggregateStore<ProductAggregate> _store;
-
-    public ProductService(IAggregateStore<ProductAggregate> store)
-    {
-        _store = store;
-    }
-
-    public async Task Handle(object command) => await Handle((dynamic)command);
-
-    private async Task Handle(CreateProduct cmd)
-    {
-        var aggregate = new ProductAggregate(cmd);
-
-        await _store.Save(aggregate);
-    }
-
-    private async Task Handle(ChangeProductName cmd)
-    {
-        var aggregate = await _store.Load(cmd.AggregateId);
-
-        aggregate.Handle(cmd);
-        
-        await _store.Save(aggregate);
-    }
+    private readonly IMessageBusFactory _busFactory;
+    private const string QueueName = "productqueue";
     
-    private async Task Handle(ChangeProductCost cmd)
+    public ProductService(IMessageBusFactory busFactory)
     {
-        var aggregate = await _store.Load(cmd.AggregateId);
+        _busFactory = busFactory;
+    }
 
-        aggregate.Handle(cmd);
+    public async Task CreateProduct(CreateProductRequest request)
+    {
+        var command = new CreateProduct()
+        {
+            ProductName = request.ProductName,
+            Price = request.Price
+        };
         
-        await _store.Save(aggregate);
+        await _busFactory.GetClient(QueueName).PublishMessageAsync(command.GetQueueItem());
+    }
+
+    public async Task ChangeProductName(ChangeProductNameRequest request, Guid productId)
+    {
+        var command = new ChangeProductName()
+        {
+            AggregateId = productId,
+            ProductName = request.ProductName,
+        };
+        
+        await _busFactory.GetClient(QueueName).PublishMessageAsync(command.GetQueueItem());
+    }
+
+    public async Task ChangeProductCost(ChangeProductCostRequest request, Guid productId)
+    {
+        var command = new ChangeProductCost()
+        {
+            AggregateId = productId,
+            Price = request.Price
+        };
+        
+        await _busFactory.GetClient(QueueName).PublishMessageAsync(command.GetQueueItem());
     }
 }

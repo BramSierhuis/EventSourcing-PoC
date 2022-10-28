@@ -1,6 +1,6 @@
 namespace CommandHandler.Services;
 
-public interface IService
+public interface IHandler
 {
     Task Handle(object command);
 }

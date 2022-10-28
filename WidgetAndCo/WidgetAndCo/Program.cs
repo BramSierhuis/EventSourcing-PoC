@@ -1,17 +1,14 @@
-using CommandHandler.Services;
-using Microsoft.Extensions.Azure;
+using WidgetAndCo.Extensions;
+using WidgetAndCo.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+builder.Services.AddAzureServiceBusFactory();
+
 builder.Services.AddTransient<ICustomerService, CustomerService>();
 builder.Services.AddTransient<IProductService, ProductService>();
 builder.Services.AddTransient<IOrderService, OrderService>();
-
-builder.Services.AddAzureClients(builder =>
-{
-    builder.AddServiceBusClient("Conn string");
-});
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

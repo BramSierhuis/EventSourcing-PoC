@@ -1,48 +1,49 @@
-using Azure.Messaging.ServiceBus;
-using CommandHandler.Repositories;
-using WidgetAndCo.Aggregates;
-using WidgetAndCo.Models;
+using WidgetAndCo.Extensions;
+using WidgetAndCo.Infrastructure;
 using WidgetAndCo.Models.Commands;
 using WidgetAndCo.Models.Requests;
 
-namespace CommandHandler.Services;
+namespace WidgetAndCo.Services;
 
 public class CustomerService : ICustomerService
 {
-    private readonly ServiceBusClient _bus;
+    private readonly IMessageBusFactory _busFactory;
+    private const string QueueName = "customerqueue";
 
-    public CustomerService(ServiceBusClient bus)
+    public CustomerService(IMessageBusFactory busFactory)
     {
-        _bus = bus;
+        _busFactory = busFactory;
     }
-
-    public async Task Handle(object command) => await Handle((dynamic)command);
-
-    private async Task Handle(CreateCustomerRequest request)
+    
+    public async Task CreateCustomer(CreateCustomerRequest request)
     {
-        var createCustomer = new CreateCustomer()
+        var command = new CreateCustomer()
         {
             FirstName = request.FirstName,
             LastName = request.LastName
         };
-        
-        await _bus.
+
+        await _busFactory.GetClient(QueueName).PublishMessageAsync(command.GetQueueItem());
     }
 
-    private async Task Handle(ChangeCustomerFirstName cmd)
+    public async Task ChangeFirstName(ChangeFirstNameRequest request, Guid customerId)
     {
-        var customer = await _store.Load(cmd.AggregateId);
+        var command = new ChangeCustomerFirstName()
+        {
+            AggregateId = customerId,
+            FirstName = request.FirstName
+        };
 
-        customer.Handle(cmd);
-        
-        await _store.Save(customer);
+        await _busFactory.GetClient(QueueName).PublishMessageAsync(command.GetQueueItem());
     }
-    private async Task Handle(ChangeCustomerLastName cmd)
+    public async Task ChangeLastName(ChangeLastNameRequest request, Guid customerId)
     {
-        var customer = await _store.Load(cmd.AggregateId);
+        var command = new ChangeCustomerLastName()
+        {
+            AggregateId = customerId,
+            LastName = request.LastName
+        };
 
-        customer.Handle(cmd);
-        
-        await _store.Save(customer);
+        await _busFactory.GetClient(QueueName).PublishMessageAsync(command.GetQueueItem());
     }
 }

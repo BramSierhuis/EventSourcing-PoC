@@ -1,29 +1,28 @@
 using CommandHandler.Repositories;
 using WidgetAndCo.Aggregates;
-using WidgetAndCo.Models;
 using WidgetAndCo.Models.Commands;
 
 namespace CommandHandler.Services;
 
-public class CustomerService : ICustomerService
+public class CustomerHandler : ICustomerHandler
 {
     private readonly IAggregateStore<CustomerAggregate> _store;
 
-    public CustomerService(IAggregateStore<CustomerAggregate> store)
+    public CustomerHandler(IAggregateStore<CustomerAggregate> store)
     {
         _store = store;
     }
 
-    public async Task Handle(object command) => await Handle((dynamic)command);
+    public async Task Handle(object command) => await Process((dynamic)command);
 
-    private async Task Handle(CreateCustomer cmd)
+    private async Task Process(CreateCustomer cmd)
     {
         var customer = new CustomerAggregate(cmd);
 
         await _store.Save(customer);
     }
 
-    private async Task Handle(ChangeCustomerFirstName cmd)
+    private async Task Process(ChangeCustomerFirstName cmd)
     {
         var customer = await _store.Load(cmd.AggregateId);
 
@@ -31,7 +30,7 @@ public class CustomerService : ICustomerService
         
         await _store.Save(customer);
     }
-    private async Task Handle(ChangeCustomerLastName cmd)
+    private async Task Process(ChangeCustomerLastName cmd)
     {
         var customer = await _store.Load(cmd.AggregateId);
 

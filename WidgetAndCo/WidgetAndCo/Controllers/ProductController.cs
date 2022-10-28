@@ -24,13 +24,7 @@ public class ProductController : ControllerBase
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public async Task Create([FromBody] CreateProductRequest request)
     {
-        var command = new CreateProduct()
-        {
-            ProductName = request.ProductName,
-            Price = request.Price
-        };
-
-        await _productService.Handle(command);
+        await _productService.CreateProduct(request);
     }
     
     [HttpPut("{productId:guid}/productName")]
@@ -38,13 +32,7 @@ public class ProductController : ControllerBase
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public async Task ChangeProductName(Guid productId, [FromBody] ChangeProductNameRequest request)
     {
-        var command = new ChangeProductName()
-        {
-            AggregateId = productId,
-            ProductName = request.ProductName,
-        };
-
-        await _productService.Handle(command);
+        await _productService.ChangeProductName(request, productId);
     }
     
     [HttpPut("{productId:guid}/price")]
@@ -52,12 +40,6 @@ public class ProductController : ControllerBase
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public async Task ChangeProductCost(Guid productId, [FromBody] ChangeProductCostRequest request)
     {
-        var command = new ChangeProductCost()
-        {
-            AggregateId = productId,
-            Price = request.Price
-        };
-
-        await _productService.Handle(command);
+        await _productService.ChangeProductCost(request, productId);
     }
 }
