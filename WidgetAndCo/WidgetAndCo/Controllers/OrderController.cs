@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using WidgetAndCo.Exceptions;
 using WidgetAndCo.Models.ReadModels;
 using WidgetAndCo.Models.Requests;
 using WidgetAndCo.Services;
@@ -24,6 +25,14 @@ public class OrderController : ControllerBase
     public async Task<ActionResult<IEnumerable<OrderReadModel>>> GetAll()
     {
         return Ok(await _orderService.GetAll());
+    }
+    
+    [HttpGet("{orderId:guid}")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    public async Task<ActionResult<IEnumerable<OrderReadModel>>> GetById(Guid orderId)
+    {
+        return Ok(await _orderService.GetById(orderId));
     }
     
     [HttpPost]

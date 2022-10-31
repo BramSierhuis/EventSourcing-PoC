@@ -28,6 +28,14 @@ public class ProductController : ControllerBase
         return Ok(await _productService.GetAll());
     }
     
+    [HttpGet("{productId:guid}")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    public async Task<ActionResult<ProductReadModel>> GetById(Guid productId)
+    {
+        return Ok(await _productService.GetById(productId));
+    }
+    
     [HttpPost]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]

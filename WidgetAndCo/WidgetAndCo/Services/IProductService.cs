@@ -11,4 +11,5 @@ public interface IProductService
     Task ChangeProductCost(ChangeProductCostRequest request, Guid productId);
     Task ChangeProductStock(ChangeProductStockRequest request, Guid productId);
     Task<IEnumerable<ProductReadModel>> GetAll();
+    Task<ProductReadModel> GetById(Guid productId);
 }

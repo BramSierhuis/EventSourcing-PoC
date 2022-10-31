@@ -8,4 +8,5 @@ public interface IOrderService
     public Task CreateOrder(CreateOrderRequest request);
     public Task ShipOrder(Guid orderId);
     Task<IEnumerable<OrderReadModel>> GetAll();
+    Task<OrderReadModel> GetById(Guid orderId);
 }

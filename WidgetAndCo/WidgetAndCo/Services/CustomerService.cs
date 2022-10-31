@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using WidgetAndCo.Exceptions;
 using WidgetAndCo.Extensions;
 using WidgetAndCo.Infrastructure;
 using WidgetAndCo.Models.Commands;
@@ -56,5 +57,12 @@ public class CustomerService : ICustomerService
     public async Task<IEnumerable<CustomerReadModel>> GetAll()
     {
         return await _customerRepository.GetAll();
+    }
+
+    public async Task<CustomerReadModel> GetById(Guid customerId)
+    {
+        var customer = await _customerRepository.TryGetById(customerId);
+        if (customer == null) throw new CustomerNotFoundException();
+        return customer;
     }
 }

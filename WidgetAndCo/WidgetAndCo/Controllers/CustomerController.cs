@@ -26,6 +26,14 @@ public class CustomerController : ControllerBase
         return Ok(await _customerService.GetAll());
     }
     
+    [HttpGet("{customerId:guid}")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    public async Task<ActionResult<CustomerReadModel>> GetById(Guid customerId)
+    {
+        return Ok(await _customerService.GetById(customerId));
+    }
+    
     [HttpPost]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]

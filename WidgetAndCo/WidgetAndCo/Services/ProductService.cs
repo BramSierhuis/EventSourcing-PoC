@@ -1,3 +1,4 @@
+using WidgetAndCo.Exceptions;
 using WidgetAndCo.Extensions;
 using WidgetAndCo.Infrastructure;
 using WidgetAndCo.Models.Commands;
@@ -67,5 +68,12 @@ public class ProductService : IProductService
     public async Task<IEnumerable<ProductReadModel>> GetAll()
     {
         return await _productRepository.GetAll();
+    }
+
+    public async Task<ProductReadModel> GetById(Guid productId)
+    {
+        var product = await _productRepository.TryGetById(productId);
+        if (product == null) throw new ProductNotFoundException();
+        return product;
     }
 }
