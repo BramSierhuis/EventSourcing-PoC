@@ -28,7 +28,8 @@ public class ProductProjection : IProjection
         {
             Id = e.AggregateId,
             Price = e.Price,
-            ProductName = e.ProductName
+            ProductName = e.ProductName,
+            ImageUrl = e.ImageUrl
         };
         
         await _repository.AddEntity(entity);

@@ -10,6 +10,8 @@ public class ProductAggregate : AggregateRoot
     public string ProductName { get; set; }
     public double Price { get; set; }
     public int Stock { get; set; }
+    
+    public string ImageUrl { get; set; }
 
     public ProductAggregate()
     {
@@ -22,6 +24,7 @@ public class ProductAggregate : AggregateRoot
             e.AggregateId = Guid.NewGuid();
             e.ProductName = command.ProductName;
             e.Price = command.Price;
+            e.ImageUrl = command.ImageUrl;
         });
     }
 
@@ -60,6 +63,7 @@ public class ProductAggregate : AggregateRoot
         AggregateId = @event.AggregateId;
         ProductName = @event.ProductName;
         Price = @event.Price;
+        ImageUrl = @event.ImageUrl;
     }
     
     private void When(ProductNameChanged @event)

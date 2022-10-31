@@ -1,4 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
+using WidgetAndCo.Exceptions;
+using WidgetAndCo.Extensions;
 using WidgetAndCo.Models;
 using WidgetAndCo.Models.Commands;
 using WidgetAndCo.Models.ReadModels;
@@ -39,8 +41,9 @@ public class ProductController : ControllerBase
     [HttpPost]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    public async Task Create([FromBody] CreateProductRequest request)
+    public async Task Create([FromForm] CreateProductRequest request)
     {
+        if (!request.Image.IsImage()) throw new InvalidImageException();
         await _productService.CreateProduct(request);
     }
     
