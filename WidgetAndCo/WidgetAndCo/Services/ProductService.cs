@@ -34,6 +34,8 @@ public class ProductService : IProductService
 
     public async Task ChangeProductName(ChangeProductNameRequest request, Guid productId)
     {
+        if (! await _productRepository.Exists(productId)) throw new ProductNotFoundException();
+
         var command = new ChangeProductName()
         {
             AggregateId = productId,
@@ -45,6 +47,8 @@ public class ProductService : IProductService
 
     public async Task ChangeProductCost(ChangeProductCostRequest request, Guid productId)
     {
+        if (! await _productRepository.Exists(productId)) throw new ProductNotFoundException();
+
         var command = new ChangeProductCost()
         {
             AggregateId = productId,
@@ -56,6 +60,8 @@ public class ProductService : IProductService
 
     public async Task ChangeProductStock(ChangeProductStockRequest request, Guid productId)
     {
+        if (! await _productRepository.Exists(productId)) throw new ProductNotFoundException();
+
         var command = new ChangeProductStock()
         {
             AggregateId = productId,
