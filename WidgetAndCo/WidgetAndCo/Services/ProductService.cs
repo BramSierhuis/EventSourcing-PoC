@@ -2,18 +2,22 @@ using WidgetAndCo.Extensions;
 using WidgetAndCo.Infrastructure;
 using WidgetAndCo.Models.Commands;
 using WidgetAndCo.Models.Commands.Products;
+using WidgetAndCo.Models.ReadModels;
 using WidgetAndCo.Models.Requests;
+using WidgetAndCo.Repositories;
 
 namespace WidgetAndCo.Services;
 
 public class ProductService : IProductService
 {
     private readonly IMessageBusFactory _busFactory;
+    private readonly ProductRepository _productRepository;
     private const string QueueName = "productqueue";
     
-    public ProductService(IMessageBusFactory busFactory)
+    public ProductService(IMessageBusFactory busFactory, ProductRepository productRepository)
     {
         _busFactory = busFactory;
+        _productRepository = productRepository;
     }
 
     public async Task CreateProduct(CreateProductRequest request)
@@ -58,5 +62,10 @@ public class ProductService : IProductService
         };
         
         await _busFactory.GetClient(QueueName).PublishMessageAsync(command.GetQueueItem());
+    }
+
+    public async Task<IEnumerable<ProductReadModel>> GetAll()
+    {
+        return await _productRepository.GetAll();
     }
 }

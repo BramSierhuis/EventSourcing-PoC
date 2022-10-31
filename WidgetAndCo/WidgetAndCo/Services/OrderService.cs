@@ -1,18 +1,22 @@
 using WidgetAndCo.Extensions;
 using WidgetAndCo.Infrastructure;
 using WidgetAndCo.Models.Commands.Orders;
+using WidgetAndCo.Models.ReadModels;
 using WidgetAndCo.Models.Requests;
+using WidgetAndCo.Repositories;
 
 namespace WidgetAndCo.Services;
 
 public class OrderService : IOrderService
 {
     private readonly IMessageBusFactory _busFactory;
+    private readonly OrderRepository _orderRepository;
     private const string QueueName = "orderqueue";
 
-    public OrderService(IMessageBusFactory busFactory)
+    public OrderService(IMessageBusFactory busFactory, OrderRepository orderRepository)
     {
         _busFactory = busFactory;
+        _orderRepository = orderRepository;
     }
     
     public async Task CreateOrder(CreateOrderRequest request)
@@ -35,5 +39,10 @@ public class OrderService : IOrderService
         };
         
         await _busFactory.GetClient(QueueName).PublishMessageAsync(command.GetQueueItem());
+    }
+    
+    public async Task<IEnumerable<OrderReadModel>> GetAll()
+    {
+        return await _orderRepository.GetAll();
     }
 }

@@ -10,8 +10,8 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddDbContext<CosmosReadModelContext>();
 builder.Services.AddScoped<CustomerRepository>();
-builder.Services.AddScoped<IRepository<ProductReadModel>, ProductRepository>();
-builder.Services.AddScoped<IRepository<OrderReadModel>, OrderRepository>();
+builder.Services.AddScoped<OrderRepository>();
+builder.Services.AddScoped<ProductRepository>();
 
 builder.Services.AddAzureServiceBusFactory();
 

@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using WidgetAndCo.Models.ReadModels;
 using WidgetAndCo.Models.Requests;
 using WidgetAndCo.Services;
 
@@ -15,6 +16,14 @@ public class OrderController : ControllerBase
     {
         _logger = logger;
         _orderService = orderService;
+    }
+    
+    [HttpGet]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    public async Task<ActionResult<IEnumerable<OrderReadModel>>> GetAll()
+    {
+        return Ok(await _orderService.GetAll());
     }
     
     [HttpPost]

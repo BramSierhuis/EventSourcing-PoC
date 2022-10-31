@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using WidgetAndCo.Models;
 using WidgetAndCo.Models.Commands;
+using WidgetAndCo.Models.ReadModels;
 using WidgetAndCo.Models.Requests;
 using WidgetAndCo.Services;
 
@@ -17,6 +18,14 @@ public class ProductController : ControllerBase
     {
         _logger = logger;
         _productService = productService;
+    }
+    
+    [HttpGet]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    public async Task<ActionResult<IEnumerable<ProductReadModel>>> GetAll()
+    {
+        return Ok(await _productService.GetAll());
     }
     
     [HttpPost]
