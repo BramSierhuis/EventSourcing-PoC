@@ -1,17 +1,20 @@
 using Microsoft.EntityFrameworkCore;
+using WidgetAndCo.Clients;
 using WidgetAndCo.Models.ReadModels;
 
 namespace WidgetAndCo.Contexts;
 
 public class CosmosReadModelContext : DbContext
 {
-    public CosmosReadModelContext(DbContextOptions<CosmosReadModelContext> options) : base(options)
+    private readonly IKeyVaultClient _keyVaultClient;
+    public CosmosReadModelContext(DbContextOptions<CosmosReadModelContext> options, IKeyVaultClient keyVaultClient) : base(options)
     {
+        _keyVaultClient = keyVaultClient;
     }
  
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-        optionsBuilder.UseCosmos("AccountEndpoint=https://localhost:8081/;AccountKey=C2y6yDjf5/R+ob0N8A7Cgv30VRDJIWEHLM+4QDU5DE2nQ9nDuVTqobD4b8mGGyPMbIZnqyMsEcaGQy67XIw/Jw==", "ReadModels");
+        optionsBuilder.UseCosmos(_keyVaultClient.GetKey("CosmosReadModelConnectionString"), "ReadModels");
     }
     
     protected override void OnModelCreating( ModelBuilder builder ) {

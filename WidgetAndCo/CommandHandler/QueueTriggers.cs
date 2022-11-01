@@ -22,28 +22,28 @@ public class QueueTriggers
     }
 
     [Function("CustomerQueueTrigger")]
-    public async Task CustomerQueueTrigger([ServiceBusTrigger("customerqueue", Connection = "ServiceBusConnection")] string myQueueItem, FunctionContext context)
+    public async Task CustomerQueueTrigger([ServiceBusTrigger("customerqueue", Connection = "ListenToQueueConnectionString")] string myQueueItem, FunctionContext context)
     {
         var command = GetCommand(myQueueItem);
         await _customerHandler.Handle(command);
     }
     
     [Function("OrderQueueTrigger")]
-    public async Task OrderQueueTrigger([ServiceBusTrigger("orderqueue", Connection = "ServiceBusConnection")] string myQueueItem, FunctionContext context)
+    public async Task OrderQueueTrigger([ServiceBusTrigger("orderqueue", Connection = "ListenToQueueConnectionString")] string myQueueItem, FunctionContext context)
     {
         var command = GetCommand(myQueueItem);
         await _orderHandler.Handle(command);
     }
 
     [Function("ProductQueueTrigger")]
-    public async Task ProductQueueTrigger([ServiceBusTrigger("productqueue", Connection = "ServiceBusConnection")] string myQueueItem, FunctionContext context)
+    public async Task ProductQueueTrigger([ServiceBusTrigger("productqueue", Connection = "ListenToQueueConnectionString")] string myQueueItem, FunctionContext context)
     {
         var command = GetCommand(myQueueItem);
         await _productHandler.Handle(command);
     }
 
     [Function("ReviewQueueTrigger")]
-    public async Task ReviewQueueTrigger([ServiceBusTrigger("reviewqueue", Connection = "ServiceBusConnection")] string myQueueItem, FunctionContext context)
+    public async Task ReviewQueueTrigger([ServiceBusTrigger("reviewqueue", Connection = "ListenToQueueConnectionString")] string myQueueItem, FunctionContext context)
     {
         var command = GetCommand(myQueueItem);
         await _reviewHandler.Handle(command);

@@ -1,3 +1,4 @@
+using CommandHandler.Clients;
 using Microsoft.EntityFrameworkCore;
 using Stream = WidgetAndCo.Models.Stream;
 
@@ -5,13 +6,16 @@ namespace CommandHandler.Context;
 
 public class EventStoreContext : DbContext
 {
-    public EventStoreContext(DbContextOptions<EventStoreContext> options) : base(options)
+    private readonly IKeyVaultClient _keyVaultClient;
+    
+    public EventStoreContext(DbContextOptions<EventStoreContext> options, IKeyVaultClient keyVaultClient) : base(options)
     {
+        _keyVaultClient = keyVaultClient;
     }
  
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-        optionsBuilder.UseCosmos("AccountEndpoint=https://localhost:8081/;AccountKey=C2y6yDjf5/R+ob0N8A7Cgv30VRDJIWEHLM+4QDU5DE2nQ9nDuVTqobD4b8mGGyPMbIZnqyMsEcaGQy67XIw/Jw==", "EventStore");
+        optionsBuilder.UseCosmos(_keyVaultClient.GetKey("CosmosDbEventStoreConnectionString"), "EventStore");
     }
     
     protected override void OnModelCreating( ModelBuilder builder ) {

@@ -1,16 +1,21 @@
 using System.Collections.Concurrent;
 using Azure.Messaging.ServiceBus;
+using WidgetAndCo.Clients;
 
 namespace WidgetAndCo.Infrastructure;
 
 public class AzureServiceBusFactory : IMessageBusFactory
 {
     private readonly object _lockObject = new();
-    private readonly string _connectionString = "Endpoint=sb://eventstorequeue.servicebus.windows.net/;SharedAccessKeyName=SendToQueue;SharedAccessKey=SEVpOFWXCgfdwH5dDwVSbuwhVyzwL2jRC8+Qh3iNv0w=";
-
+    private readonly string _connectionString;
     private readonly ConcurrentDictionary<string, ServiceBusClient> _clients = new();
     private readonly ConcurrentDictionary<string, ServiceBusSender> _senders = new();
 
+    public AzureServiceBusFactory(IKeyVaultClient keyVaultClient)
+    {
+        _connectionString = keyVaultClient.GetKey("SendToQueueConnectionString");
+    }
+    
     public IMessageBus GetClient(string queueName)
     {
         var key = $"{_connectionString}-{queueName}";

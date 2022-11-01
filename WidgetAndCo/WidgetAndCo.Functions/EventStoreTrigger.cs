@@ -18,7 +18,7 @@ public class EventStoreTrigger
     public async Task Run([CosmosDBTrigger(
             databaseName: "EventStore",
             collectionName: "Streams",
-            ConnectionStringSetting = "CosmosDbConnectionString",
+            ConnectionStringSetting = "CosmosReadModelConnectionString",
             LeaseCollectionName = "leases",
             CreateLeaseCollectionIfNotExists = true)]
         IReadOnlyList<Stream> input, FunctionContext context)

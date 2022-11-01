@@ -6,9 +6,16 @@ namespace WidgetAndCo.Clients;
 
 public class BlobClient : IProductImageClient
 {
+    private readonly IKeyVaultClient _keyVaultClient;
+
+    public BlobClient(IKeyVaultClient keyVaultClient)
+    {
+        _keyVaultClient = keyVaultClient;
+    }
+
     public async Task AddAsync(string containerName, byte[] image, string fileName)
     {
-        var connection = "";
+        var connection = _keyVaultClient.GetKey("StorageConnectionString");
         
         var blobContainerClient = new BlobContainerClient(connection, containerName);
         var blobClient = blobContainerClient.GetBlobClient(fileName);
@@ -19,7 +26,7 @@ public class BlobClient : IProductImageClient
     
     public Uri GetUri(string containerName, string fileName)
     {
-        var connection = "";
+        var connection = _keyVaultClient.GetKey("StorageConnectionString");
         
         var blobContainerClient = new BlobContainerClient(connection, containerName);
         var blobClient = blobContainerClient.GetBlobClient(fileName);
