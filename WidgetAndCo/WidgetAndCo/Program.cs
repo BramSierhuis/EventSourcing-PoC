@@ -1,8 +1,6 @@
-using WidgetAndCo;
 using WidgetAndCo.Clients;
 using WidgetAndCo.Contexts;
 using WidgetAndCo.Extensions;
-using WidgetAndCo.Models.ReadModels;
 using WidgetAndCo.Repositories;
 using WidgetAndCo.Services;
 
@@ -13,6 +11,7 @@ builder.Services.AddDbContext<CosmosReadModelContext>();
 builder.Services.AddScoped<CustomerRepository>();
 builder.Services.AddScoped<OrderRepository>();
 builder.Services.AddScoped<ProductRepository>();
+builder.Services.AddScoped<OrderShippingTimeRepository>();
 
 builder.Services.AddScoped<IProductImageClient, BlobClient>();
 

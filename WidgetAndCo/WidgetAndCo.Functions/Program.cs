@@ -13,10 +13,12 @@ var host = new HostBuilder()
         x.AddScoped<IRepository<CustomerReadModel>, CustomerRepository>();
         x.AddScoped<IRepository<ProductReadModel>, ProductRepository>();
         x.AddScoped<IRepository<OrderReadModel>, OrderRepository>();
+        x.AddScoped<IRepository<OrderShippingTimeReadModel>, OrderShippingTimeRepository>();
 
         x.AddScoped<IProjection, CustomerProjection>();        
         x.AddScoped<IProjection, ProductProjection>();
         x.AddScoped<IProjection, OrderProjection>();
+        x.AddScoped<IProjection, OrderShippingTimeeProjection>();
     })
     .Build();
 

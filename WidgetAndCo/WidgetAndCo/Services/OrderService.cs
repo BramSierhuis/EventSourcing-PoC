@@ -13,16 +13,18 @@ public class OrderService : IOrderService
 {
     private readonly IMessageBusFactory _busFactory;
     private readonly OrderRepository _orderRepository;
+    private readonly OrderShippingTimeRepository _orderShippingTimeRepository;
     private readonly ProductRepository _productRepository;
     private readonly CustomerRepository _customerRepository;
     private const string QueueName = "orderqueue";
 
-    public OrderService(IMessageBusFactory busFactory, OrderRepository orderRepository, ProductRepository productRepository, CustomerRepository customerRepository)
+    public OrderService(IMessageBusFactory busFactory, OrderRepository orderRepository, ProductRepository productRepository, CustomerRepository customerRepository, OrderShippingTimeRepository orderShippingTimeRepository)
     {
         _busFactory = busFactory;
         _orderRepository = orderRepository;
         _productRepository = productRepository;
         _customerRepository = customerRepository;
+        _orderShippingTimeRepository = orderShippingTimeRepository;
     }
     
     public async Task CreateOrder(CreateOrderRequest request)
@@ -77,6 +79,13 @@ public class OrderService : IOrderService
     public async Task<OrderReadModel> GetById(Guid orderId)
     {
         var order = await _orderRepository.TryGetById(orderId);
+        if(order == null) throw new OrderNotFoundException();
+        return order;
+    }
+    
+    public async Task<OrderShippingTimeReadModel> GetShippingTimeForOrder(Guid orderId)
+    {
+        var order = await _orderShippingTimeRepository.TryGetById(orderId);
         if(order == null) throw new OrderNotFoundException();
         return order;
     }

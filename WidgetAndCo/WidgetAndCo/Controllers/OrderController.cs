@@ -35,6 +35,14 @@ public class OrderController : ControllerBase
         return Ok(await _orderService.GetById(orderId));
     }
     
+    [HttpGet("{orderId:guid}/shippingTime")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    public async Task<ActionResult<OrderShippingTimeReadModel>> GetShippingTimeForOrder(Guid orderId)
+    {
+        return Ok(await _orderService.GetShippingTimeForOrder(orderId));
+    }
+    
     [HttpPost]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]

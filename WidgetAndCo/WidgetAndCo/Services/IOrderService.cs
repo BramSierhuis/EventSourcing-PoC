@@ -9,4 +9,5 @@ public interface IOrderService
     public Task ShipOrder(Guid orderId);
     Task<IEnumerable<OrderReadModel>> GetAll();
     Task<OrderReadModel> GetById(Guid orderId);
+    Task<OrderShippingTimeReadModel> GetShippingTimeForOrder(Guid orderId);
 }
