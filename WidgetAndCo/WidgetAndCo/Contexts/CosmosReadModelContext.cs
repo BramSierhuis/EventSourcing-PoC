@@ -26,10 +26,14 @@ public class CosmosReadModelContext : DbContext
         
         builder.Entity<OrderShippingTimeReadModel>().ToContainer("OrderShippingTimeReadModel");
         builder.Entity<OrderShippingTimeReadModel>().Property(x => x.Id).ToJsonProperty("id");
+        
+        builder.Entity<ReviewReadModel>().ToContainer("ReviewReadModel");
+        builder.Entity<ReviewReadModel>().Property(x => x.Id).ToJsonProperty("id");
     }
     
     public DbSet<CustomerReadModel> Customers { get; set; }
     public DbSet<ProductReadModel> Products { get; set; }
     public DbSet<OrderReadModel> Orders { get; set; }
     public DbSet<OrderShippingTimeReadModel> OrderShippingTime { get; set; }
+    public DbSet<ReviewReadModel> Reviews { get; set; }
 }

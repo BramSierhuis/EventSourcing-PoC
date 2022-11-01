@@ -11,12 +11,14 @@ public class QueueTriggers
     private readonly ICustomerHandler _customerHandler;
     private readonly IProductHandler _productHandler;
     private readonly IOrderHandler _orderHandler;
+    private readonly IReviewHandler _reviewHandler;
 
-    public QueueTriggers(IProductHandler productHandler, IOrderHandler orderHandler, ICustomerHandler customerHandler)
+    public QueueTriggers(IProductHandler productHandler, IOrderHandler orderHandler, ICustomerHandler customerHandler, IReviewHandler reviewHandler)
     {
         _productHandler = productHandler;
         _orderHandler = orderHandler;
         _customerHandler = customerHandler;
+        _reviewHandler = reviewHandler;
     }
 
     [Function("CustomerQueueTrigger")]
@@ -38,6 +40,13 @@ public class QueueTriggers
     {
         var command = GetCommand(myQueueItem);
         await _productHandler.Handle(command);
+    }
+
+    [Function("ReviewQueueTrigger")]
+    public async Task ReviewQueueTrigger([ServiceBusTrigger("reviewqueue", Connection = "ServiceBusConnection")] string myQueueItem, FunctionContext context)
+    {
+        var command = GetCommand(myQueueItem);
+        await _reviewHandler.Handle(command);
     }
 
     private static object GetCommand(string message)

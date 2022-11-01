@@ -12,6 +12,7 @@ builder.Services.AddScoped<CustomerRepository>();
 builder.Services.AddScoped<OrderRepository>();
 builder.Services.AddScoped<ProductRepository>();
 builder.Services.AddScoped<OrderShippingTimeRepository>();
+builder.Services.AddScoped<ReviewRepository>();
 
 builder.Services.AddScoped<IProductImageClient, BlobClient>();
 
@@ -20,6 +21,7 @@ builder.Services.AddAzureServiceBusFactory();
 builder.Services.AddTransient<ICustomerService, CustomerService>();
 builder.Services.AddTransient<IProductService, ProductService>();
 builder.Services.AddTransient<IOrderService, OrderService>();
+builder.Services.AddTransient<IReviewService, ReviewService>();
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

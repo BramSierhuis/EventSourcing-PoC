@@ -14,10 +14,12 @@ var host = new HostBuilder()
         x.AddTransient<ICustomerHandler, CustomerHandler>();
         x.AddTransient<IOrderHandler, OrderHandler>();
         x.AddTransient<IProductHandler, ProductHandler>();
+        x.AddTransient<IReviewHandler, ReviewHandler>();
         
         x.AddTransient<IAggregateStore<CustomerAggregate>, EventStore<CustomerAggregate>>();
         x.AddTransient<IAggregateStore<ProductAggregate>, EventStore<ProductAggregate>>();
         x.AddTransient<IAggregateStore<OrderAggregate>, EventStore<OrderAggregate>>();
+        x.AddTransient<IAggregateStore<ReviewAggregate>, EventStore<ReviewAggregate>>();
     })
     .Build();
 
