@@ -1,3 +1,4 @@
+using WidgetAndCo.Models;
 using WidgetAndCo.Models.Commands;
 using WidgetAndCo.Models.Events;
 
@@ -7,6 +8,8 @@ public class CustomerAggregate : AggregateRoot
 {
     public string FirstName { get; set; }
     public string LastName { get; set; }
+    public string Email { get; set; }
+    public ShippingAddress ShippingAddress { get; set; }
 
     public CustomerAggregate()
     {
@@ -19,6 +22,8 @@ public class CustomerAggregate : AggregateRoot
             e.AggregateId = Guid.NewGuid();
             e.FirstName = command.FirstName;
             e.LastName = command.LastName;
+            e.Email = command.Email;
+            e.ShippingAddress = command.ShippingAddress;
         });
     }
 
@@ -48,6 +53,8 @@ public class CustomerAggregate : AggregateRoot
         AggregateId = @event.AggregateId;
         FirstName = @event.FirstName;
         LastName = @event.LastName;
+        Email = @event.Email;
+        ShippingAddress = @event.ShippingAddress;
     }
     
     private void When(CustomerFirstNameChanged @event)

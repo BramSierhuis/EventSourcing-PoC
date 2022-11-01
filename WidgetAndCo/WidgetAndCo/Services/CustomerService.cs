@@ -27,7 +27,9 @@ public class CustomerService : ICustomerService
         var command = new CreateCustomer()
         {
             FirstName = request.FirstName,
-            LastName = request.LastName
+            LastName = request.LastName,
+            Email = request.Email,
+            ShippingAddress = request.ShippingAddress
         };
 
         await _busFactory.GetClient(QueueName).PublishMessageAsync(command.GetQueueItem());

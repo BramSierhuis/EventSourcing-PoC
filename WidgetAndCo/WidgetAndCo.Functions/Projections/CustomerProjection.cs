@@ -27,7 +27,9 @@ public class CustomerProjection : IProjection
         {
             Id = e.AggregateId,
             FirstName = e.FirstName,
-            LastName = e.LastName
+            LastName = e.LastName,
+            Email = e.Email,
+            ShippingAddress = e.ShippingAddress
         };
         
         await _repository.AddEntity(customer);
