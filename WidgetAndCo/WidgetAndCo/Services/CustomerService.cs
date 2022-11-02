@@ -3,9 +3,12 @@ using WidgetAndCo.Exceptions;
 using WidgetAndCo.Extensions;
 using WidgetAndCo.Infrastructure;
 using WidgetAndCo.Models.Commands;
+using WidgetAndCo.Models.Commands.Customers;
 using WidgetAndCo.Models.ReadModels;
 using WidgetAndCo.Models.Requests;
+using WidgetAndCo.Models.Requests.Customers;
 using WidgetAndCo.Repositories;
+using WidgetAndCo.Services.Abstract;
 
 namespace WidgetAndCo.Services;
 

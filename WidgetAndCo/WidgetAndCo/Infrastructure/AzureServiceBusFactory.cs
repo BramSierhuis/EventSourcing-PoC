@@ -1,6 +1,7 @@
 using System.Collections.Concurrent;
 using Azure.Messaging.ServiceBus;
 using WidgetAndCo.Clients;
+using WidgetAndCo.Clients.Abstract;
 
 namespace WidgetAndCo.Infrastructure;
 

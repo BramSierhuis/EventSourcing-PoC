@@ -1,5 +1,6 @@
 using System.Linq.Expressions;
 using CommandHandler.Context;
+using CommandHandler.Repositories.Abstract;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using WidgetAndCo.Aggregates;

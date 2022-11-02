@@ -5,7 +5,9 @@ using WidgetAndCo.Models;
 using WidgetAndCo.Models.Commands;
 using WidgetAndCo.Models.ReadModels;
 using WidgetAndCo.Models.Requests;
+using WidgetAndCo.Models.Requests.Products;
 using WidgetAndCo.Services;
+using WidgetAndCo.Services.Abstract;
 
 namespace WidgetAndCo.Controllers;
 

@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using WidgetAndCo.Clients;
+using WidgetAndCo.Clients.Abstract;
 using WidgetAndCo.Models.ReadModels;
 
 namespace WidgetAndCo.Contexts;

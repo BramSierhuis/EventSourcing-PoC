@@ -1,6 +1,8 @@
 using WidgetAndCo.Models;
 using WidgetAndCo.Models.Commands;
+using WidgetAndCo.Models.Commands.Customers;
 using WidgetAndCo.Models.Events;
+using WidgetAndCo.Models.Events.Customers;
 
 namespace WidgetAndCo.Aggregates;
 

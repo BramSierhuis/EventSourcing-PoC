@@ -1,6 +1,7 @@
 using Azure.Storage.Blobs;
 using Azure.Storage.Blobs.Specialized;
 using Azure.Storage.Sas;
+using WidgetAndCo.Clients.Abstract;
 
 namespace WidgetAndCo.Clients;
 

@@ -1,12 +1,13 @@
 using WidgetAndCo.Clients;
+using WidgetAndCo.Clients.Abstract;
 using WidgetAndCo.Contexts;
 using WidgetAndCo.Extensions;
 using WidgetAndCo.Repositories;
 using WidgetAndCo.Services;
+using WidgetAndCo.Services.Abstract;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
 builder.Services.AddSingleton<IKeyVaultClient, KeyVaultClient>();
 
 builder.Services.AddDbContext<CosmosReadModelContext>();
@@ -26,7 +27,7 @@ builder.Services.AddTransient<IOrderService, OrderService>();
 builder.Services.AddTransient<IReviewService, ReviewService>();
 
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 

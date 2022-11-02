@@ -1,8 +1,10 @@
-using CommandHandler.Repositories;
+using CommandHandler.Handlers.Abstract;
+using CommandHandler.Repositories.Abstract;
 using WidgetAndCo.Aggregates;
 using WidgetAndCo.Models.Commands;
+using WidgetAndCo.Models.Commands.Customers;
 
-namespace CommandHandler.Services;
+namespace CommandHandler.Handlers;
 
 public class CustomerHandler : ICustomerHandler
 {

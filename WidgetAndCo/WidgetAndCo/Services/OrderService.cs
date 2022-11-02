@@ -5,7 +5,9 @@ using WidgetAndCo.Infrastructure;
 using WidgetAndCo.Models.Commands.Orders;
 using WidgetAndCo.Models.ReadModels;
 using WidgetAndCo.Models.Requests;
+using WidgetAndCo.Models.Requests.Orders;
 using WidgetAndCo.Repositories;
+using WidgetAndCo.Services.Abstract;
 
 namespace WidgetAndCo.Services;
 

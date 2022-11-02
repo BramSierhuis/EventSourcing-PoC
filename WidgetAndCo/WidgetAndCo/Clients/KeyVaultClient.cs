@@ -1,5 +1,6 @@
 using Azure.Identity;
 using Azure.Security.KeyVault.Secrets;
+using WidgetAndCo.Clients.Abstract;
 
 namespace WidgetAndCo.Clients;
 

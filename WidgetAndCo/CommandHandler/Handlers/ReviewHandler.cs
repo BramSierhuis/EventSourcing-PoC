@@ -1,9 +1,9 @@
-using CommandHandler.Repositories;
+using CommandHandler.Handlers.Abstract;
+using CommandHandler.Repositories.Abstract;
 using WidgetAndCo.Aggregates;
-using WidgetAndCo.Models.Commands.Orders;
 using WidgetAndCo.Models.Commands.Reviews;
 
-namespace CommandHandler.Services;
+namespace CommandHandler.Handlers;
 
 public class ReviewHandler : IReviewHandler
 {

@@ -10,9 +10,3 @@ public class Stream
     public int Version { get; set; }
     public ICollection<StreamEvent> Events { get; set; }
 }
-
-public class StreamEvent
-{
-    public string Data { get; set; }
-    public string ClrType { get; set; }
-}

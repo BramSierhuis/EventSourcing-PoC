@@ -1,4 +1,4 @@
-using CommandHandler.Services;
+using CommandHandler.Handlers.Abstract;
 using Microsoft.Azure.Functions.Worker;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;

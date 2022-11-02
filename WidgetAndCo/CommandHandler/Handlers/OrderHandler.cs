@@ -1,8 +1,9 @@
-using CommandHandler.Repositories;
+using CommandHandler.Handlers.Abstract;
+using CommandHandler.Repositories.Abstract;
 using WidgetAndCo.Aggregates;
 using WidgetAndCo.Models.Commands.Orders;
 
-namespace CommandHandler.Services;
+namespace CommandHandler.Handlers;
 
 public class OrderHandler : IOrderHandler
 {

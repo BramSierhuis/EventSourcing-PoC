@@ -1,7 +1,9 @@
 using Microsoft.AspNetCore.Mvc;
 using WidgetAndCo.Models.ReadModels;
 using WidgetAndCo.Models.Requests;
+using WidgetAndCo.Models.Requests.Customers;
 using WidgetAndCo.Services;
+using WidgetAndCo.Services.Abstract;
 
 namespace WidgetAndCo.Controllers;
 
