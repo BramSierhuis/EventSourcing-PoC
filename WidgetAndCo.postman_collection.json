@@ -1,0 +1,557 @@
+{
+	"info": {
+		"_postman_id": "722429f8-4c99-4358-a558-3cca83c95c73",
+		"name": "WidgetAndCo",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "23830932"
+	},
+	"item": [
+		{
+			"name": "Customer",
+			"item": [
+				{
+					"name": "Create Customer",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"firstName\": \"Bram\",\r\n  \"lastName\": \"Sierhuis\",\r\n  \"email\": \"bram@bramsierhuis.nl\",\r\n  \"shippingAddress\": {\r\n    \"street\": \"Jan van Polanenstraat\",\r\n    \"houseNumber\": \"25\",\r\n    \"houseNumberAddition\": \"A\",\r\n    \"zipCode\": \"1962xa\",\r\n    \"countryCode\": \"NL\",\r\n    \"forTheAttentionOff\": \"Dhr.\"\r\n  }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:7232/customers",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "7232",
+							"path": [
+								"customers"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UpdateFirstName",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"firstName\" : \"Bob\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:7232/customers/{{customerId}}/firstname",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "7232",
+							"path": [
+								"customers",
+								"{{customerId}}",
+								"firstname"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UpdateLastName",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"lastName\" : \"A lovely second new lastname\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:7232/customers/{{customerId}}/lastname",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "7232",
+							"path": [
+								"customers",
+								"{{customerId}}",
+								"lastname"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetAllCustomers",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:7232/customers",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "7232",
+							"path": [
+								"customers"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetCustomerById",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:7232/customers/{{customerId}}",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "7232",
+							"path": [
+								"customers",
+								"{{customerId}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Product",
+			"item": [
+				{
+					"name": "Create Product",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "ProductName",
+									"value": "Vitamine D",
+									"type": "text"
+								},
+								{
+									"key": "Price",
+									"value": "12.99",
+									"type": "text"
+								},
+								{
+									"key": "Image",
+									"type": "file",
+									"src": "/C:/Users/Bram/Downloads/120300825_MCM_PACK_190472.png"
+								}
+							]
+						},
+						"url": {
+							"raw": "https://localhost:7232/products",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "7232",
+							"path": [
+								"products"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UpdateProductName",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"productName\" : \"A lovely new productName\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:7232/products/{{productId}}/productName",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "7232",
+							"path": [
+								"products",
+								"{{productId}}",
+								"productName"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetProductById",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:7232/products/{{productId}}",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "7232",
+							"path": [
+								"products",
+								"{{productId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetAllProducts",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:7232/products",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "7232",
+							"path": [
+								"products"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UpdateProductCost",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"price\" : 11.99\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:7232/products/{{productId}}/price",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "7232",
+							"path": [
+								"products",
+								"{{productId}}",
+								"price"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UpdateProductStock",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"stockChange\" : 6\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:7232/products/{{productId}}/stock",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "7232",
+							"path": [
+								"products",
+								"{{productId}}",
+								"stock"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Order",
+			"item": [
+				{
+					"name": "Create Order",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"customerId\": \"{{customerId}}\",\r\n  \"orderItems\": [\r\n    {\r\n      \"productId\": \"{{productId}}\",\r\n      \"quantity\": 2\r\n    }\r\n  ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:7232/orders",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "7232",
+							"path": [
+								"orders"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Ship Order",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:7232/orders/{{orderId}}/ship",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "7232",
+							"path": [
+								"orders",
+								"{{orderId}}",
+								"ship"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetAllOrders",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:7232/orders",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "7232",
+							"path": [
+								"orders"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetOrderShippingTime",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:7232/orders/{{orderId}}/shippingTime",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "7232",
+							"path": [
+								"orders",
+								"{{orderId}}",
+								"shippingTime"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetOrderById",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:7232/orders/{{orderId}}",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "7232",
+							"path": [
+								"orders",
+								"{{orderId}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Review",
+			"item": [
+				{
+					"name": "Create Review",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"review\": \"Pracht Product\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:7232/reviews/{{productId}}",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "7232",
+							"path": [
+								"reviews",
+								"{{productId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetReviewById",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"review\": \"Pracht Product\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:7232/reviews/{{reviewId}}",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "7232",
+							"path": [
+								"reviews",
+								"{{reviewId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetReviewsForProduct",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:7232/reviews/product/{{productId}}",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "7232",
+							"path": [
+								"reviews",
+								"product",
+								"{{productId}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "customerId",
+			"value": "cdf3c8ac-4013-4ee7-afca-9b9701477ead"
+		},
+		{
+			"key": "productId",
+			"value": "4b0d90d3-cf32-4bcc-b942-b943a458d951",
+			"type": "string"
+		},
+		{
+			"key": "orderId",
+			"value": "7a8cdb81-3d6a-4104-93d1-09fd03164832",
+			"type": "string"
+		},
+		{
+			"key": "reviewId",
+			"value": "bb6e74fd-5827-4f6c-8e0b-fe3d3c5108e7",
+			"type": "string"
+		}
+	]
+}
