@@ -1,3 +1,4 @@
+using Microsoft.Extensions.Azure;
 using WidgetAndCo.Clients;
 using WidgetAndCo.Clients.Abstract;
 using WidgetAndCo.Contexts;
@@ -8,7 +9,7 @@ using WidgetAndCo.Services.Abstract;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddSingleton<IKeyVaultClient, KeyVaultClient>();
+builder.AddKeyVaultSecrets();
 
 builder.Services.AddDbContext<CosmosReadModelContext>();
 builder.Services.AddScoped<CustomerRepository>();

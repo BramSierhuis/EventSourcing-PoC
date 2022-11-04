@@ -12,9 +12,9 @@ public class AzureServiceBusFactory : IMessageBusFactory
     private readonly ConcurrentDictionary<string, ServiceBusClient> _clients = new();
     private readonly ConcurrentDictionary<string, ServiceBusSender> _senders = new();
 
-    public AzureServiceBusFactory(IKeyVaultClient keyVaultClient)
+    public AzureServiceBusFactory(IConfiguration configuration)
     {
-        _connectionString = keyVaultClient.GetKey("SendToQueueConnectionString");
+        _connectionString = configuration.GetValue<string>("SendToQueueConnectionString");
     }
     
     public IMessageBus GetClient(string queueName)

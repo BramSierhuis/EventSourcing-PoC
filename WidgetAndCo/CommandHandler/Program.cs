@@ -1,4 +1,3 @@
-using CommandHandler.Clients;
 using CommandHandler.Context;
 using CommandHandler.Handlers;
 using CommandHandler.Handlers.Abstract;
@@ -12,7 +11,6 @@ var host = new HostBuilder()
     .ConfigureFunctionsWorkerDefaults()
     .ConfigureServices(x =>
     {
-        x.AddScoped<IKeyVaultClient, KeyVaultClient>();
         x.AddDbContext<EventStoreContext>();
 
         x.AddTransient<ICustomerHandler, CustomerHandler>();

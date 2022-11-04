@@ -24,35 +24,19 @@ public abstract class BaseRepository<TEntity, TContext> : IRepository<TEntity>
     {
         return await _context.Set<TEntity>().ToListAsync();
     }
-    
-    public async Task<TEntity> GetById(Guid id)
-    {
-        return await _context.Set<TEntity>().FindAsync(id);
-    }
 
     public async Task<bool> Exists(Guid id)
-    {
-        try
-        {
-            await GetById(id);
-            return true;
-        }
-        catch (Exception e)
-        {
-            return false;
-        }
-    }
+        => await TryGetById(id) != null;
 
     public async Task<TEntity?> TryGetById(Guid id)
     {
         try
         {
-            return await GetById(id);
+            return await _context.Set<TEntity>().FindAsync(id);
         }
         catch (Exception e)
         {
             return null;
-
         }
     }
 }

@@ -31,7 +31,9 @@ public class ReviewService : IReviewService
 
     public async Task<ReviewReadModel> GetById(Guid reviewId)
     {
-        return await _reviewRepository.GetById(reviewId);
+        var review = await _reviewRepository.TryGetById(reviewId);
+        if(review == null) throw new ReviewNotFoundException();
+        return review;
     }
 
     public async Task CreateReview(CreateReviewRequest request, Guid productId)

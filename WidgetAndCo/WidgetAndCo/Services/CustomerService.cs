@@ -52,7 +52,6 @@ public class CustomerService : ICustomerService
     public async Task ChangeLastName(ChangeLastNameRequest request, Guid customerId)
     {
         if (! await _customerRepository.Exists(customerId)) throw new CustomerNotFoundException();
-
         var command = new ChangeCustomerLastName()
         {
             AggregateId = customerId,

@@ -1,21 +1,19 @@
 using Microsoft.EntityFrameworkCore;
-using WidgetAndCo.Clients;
 using WidgetAndCo.Models.ReadModels;
-using Stream = WidgetAndCo.Models.Stream;
 
 namespace WidgetAndCo.Context;
 
 public class CosmosReadModelContext : DbContext
 {
-    private readonly IKeyVaultClient _keyVaultClient;
-    public CosmosReadModelContext(DbContextOptions<CosmosReadModelContext> options, IKeyVaultClient keyVaultClient) : base(options)
+    public CosmosReadModelContext(DbContextOptions<CosmosReadModelContext> options) : base(options)
     {
-        _keyVaultClient = keyVaultClient;
     }
  
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-        optionsBuilder.UseCosmos(_keyVaultClient.GetKey("CosmosReadModelConnectionString"), "ReadModels");
+        var connectionString = Environment.GetEnvironmentVariable("CosmosReadModelConnectionString") ??
+                               throw new ArgumentNullException("CosmosReadModelConnectionString");
+        optionsBuilder.UseCosmos(connectionString, "ReadModels");
     }
     
     protected override void OnModelCreating( ModelBuilder builder ) {

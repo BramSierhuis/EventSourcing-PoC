@@ -1,6 +1,6 @@
 using CommandHandler.Handlers.Abstract;
 using Microsoft.Azure.Functions.Worker;
-using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
 using WidgetAndCo.Models;
 
@@ -12,6 +12,7 @@ public class QueueTriggers
     private readonly IProductHandler _productHandler;
     private readonly IOrderHandler _orderHandler;
     private readonly IReviewHandler _reviewHandler;
+    private readonly IConfiguration configuration;
 
     public QueueTriggers(IProductHandler productHandler, IOrderHandler orderHandler, ICustomerHandler customerHandler, IReviewHandler reviewHandler)
     {

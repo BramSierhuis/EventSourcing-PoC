@@ -7,15 +7,18 @@ namespace WidgetAndCo.Contexts;
 
 public class CosmosReadModelContext : DbContext
 {
-    private readonly IKeyVaultClient _keyVaultClient;
-    public CosmosReadModelContext(DbContextOptions<CosmosReadModelContext> options, IKeyVaultClient keyVaultClient) : base(options)
+    private readonly IConfiguration _configuration;
+    
+    public CosmosReadModelContext(DbContextOptions<CosmosReadModelContext> options, IConfiguration configuration) : base(options)
     {
-        _keyVaultClient = keyVaultClient;
+        _configuration = configuration;
     }
  
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-        optionsBuilder.UseCosmos(_keyVaultClient.GetKey("CosmosReadModelConnectionString"), "ReadModels");
+        var connectionString = _configuration.GetValue<string>("CosmosReadModelConnectionString") ??
+                               throw new ArgumentNullException("CosmosReadModelConnectionString");
+        optionsBuilder.UseCosmos(connectionString, "ReadModels");
     }
     
     protected override void OnModelCreating( ModelBuilder builder ) {

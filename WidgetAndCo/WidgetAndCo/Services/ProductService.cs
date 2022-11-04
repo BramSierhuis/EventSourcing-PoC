@@ -30,7 +30,7 @@ public class ProductService : IProductService
 
     public async Task CreateProduct(CreateProductRequest request)
     {
-        var filename = $"{Guid.NewGuid()}.{Path.GetExtension(request.Image.FileName)}";
+        var filename = $"{Guid.NewGuid()}{Path.GetExtension(request.Image.FileName)}";
         var imageBytes = await request.Image.GetBytes();
         
         await _productImageClient.AddAsync("productimages", imageBytes, filename);
