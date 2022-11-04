@@ -1,4 +1,5 @@
 using WidgetAndCo.Functions.Repositories;
+using WidgetAndCo.Functions.Repositories.Abstract;
 using WidgetAndCo.Models.Events.Orders;
 using WidgetAndCo.Models.ReadModels;
 
@@ -6,9 +7,9 @@ namespace WidgetAndCo.Functions.Projections;
 
 public class OrderProjection : IProjection
 {
-    private readonly IRepository<OrderReadModel> _repository;
+    private readonly IOrderRepository _repository;
 
-    public OrderProjection(IRepository<OrderReadModel> repository)
+    public OrderProjection(IOrderRepository repository)
     {
         _repository = repository;
     }

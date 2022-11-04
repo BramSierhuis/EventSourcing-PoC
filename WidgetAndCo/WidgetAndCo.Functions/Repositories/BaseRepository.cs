@@ -1,6 +1,7 @@
 using System.Linq.Expressions;
 using Microsoft.EntityFrameworkCore;
 using WidgetAndCo.Functions.Extensions;
+using WidgetAndCo.Functions.Repositories.Abstract;
 using WidgetAndCo.Models.ReadModels;
 
 namespace WidgetAndCo.Functions.Repositories;

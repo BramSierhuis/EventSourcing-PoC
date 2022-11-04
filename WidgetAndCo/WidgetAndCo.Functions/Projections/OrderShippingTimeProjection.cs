@@ -1,4 +1,5 @@
 using WidgetAndCo.Functions.Repositories;
+using WidgetAndCo.Functions.Repositories.Abstract;
 using WidgetAndCo.Models.Events.Orders;
 using WidgetAndCo.Models.ReadModels;
 
@@ -6,9 +7,9 @@ namespace WidgetAndCo.Functions.Projections;
 
 public class OrderShippingTimeeProjection : IProjection
 {
-    private readonly IRepository<OrderShippingTimeReadModel> _repository;
+    private readonly IOrderShippingTimeRepository _repository;
 
-    public OrderShippingTimeeProjection(IRepository<OrderShippingTimeReadModel> repository)
+    public OrderShippingTimeeProjection(IOrderShippingTimeRepository repository)
     {
         _repository = repository;
     }

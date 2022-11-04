@@ -3,21 +3,20 @@ using WidgetAndCo.Extensions;
 using WidgetAndCo.Infrastructure;
 using WidgetAndCo.Models.Commands.Reviews;
 using WidgetAndCo.Models.ReadModels;
-using WidgetAndCo.Models.Requests;
 using WidgetAndCo.Models.Requests.Reviews;
-using WidgetAndCo.Repositories;
+using WidgetAndCo.Repositories.Abstract;
 using WidgetAndCo.Services.Abstract;
 
 namespace WidgetAndCo.Services;
 
 public class ReviewService : IReviewService
 {
-    private readonly ReviewRepository _reviewRepository;
-    private readonly ProductRepository _productRepository;
+    private readonly IReviewRepository _reviewRepository;
+    private readonly IProductRepository _productRepository;
     private readonly IMessageBusFactory _busFactory;
     private const string QueueName = "reviewqueue";
     
-    public ReviewService(ReviewRepository reviewRepository, ProductRepository productRepository, IMessageBusFactory busFactory)
+    public ReviewService(IReviewRepository reviewRepository, IProductRepository productRepository, IMessageBusFactory busFactory)
     {
         _reviewRepository = reviewRepository;
         _busFactory = busFactory;
@@ -27,6 +26,11 @@ public class ReviewService : IReviewService
     public async Task<IEnumerable<ReviewReadModel>> GetAllForProduct(Guid productId)
     {
         return await _reviewRepository.GetAllForProduct(productId);
+    }
+
+    public async Task<IEnumerable<ReviewReadModel>> GetAll()
+    {
+        return await _reviewRepository.GetAll();
     }
 
     public async Task<ReviewReadModel> GetById(Guid reviewId)

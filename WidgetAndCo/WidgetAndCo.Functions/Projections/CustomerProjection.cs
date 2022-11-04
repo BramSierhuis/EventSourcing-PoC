@@ -1,4 +1,5 @@
 using WidgetAndCo.Functions.Repositories;
+using WidgetAndCo.Functions.Repositories.Abstract;
 using WidgetAndCo.Models.Events;
 using WidgetAndCo.Models.Events.Customers;
 using WidgetAndCo.Models.ReadModels;
@@ -7,9 +8,9 @@ namespace WidgetAndCo.Functions.Projections;
 
 public class CustomerProjection : IProjection
 {
-    private readonly IRepository<CustomerReadModel> _repository;
+    private readonly ICustomerRepository _repository;
 
-    public CustomerProjection(IRepository<CustomerReadModel> repository)
+    public CustomerProjection(ICustomerRepository repository)
     {
         _repository = repository;
     }

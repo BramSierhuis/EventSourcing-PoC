@@ -1,10 +1,11 @@
 using Microsoft.EntityFrameworkCore;
 using WidgetAndCo.Contexts;
 using WidgetAndCo.Models.ReadModels;
+using WidgetAndCo.Repositories.Abstract;
 
 namespace WidgetAndCo.Repositories;
 
-public class ReviewRepository : BaseRepository<ReviewReadModel, CosmosReadModelContext>
+public class ReviewRepository : BaseRepository<ReviewReadModel, CosmosReadModelContext>, IReviewRepository
 {
     private readonly CosmosReadModelContext _context;
     

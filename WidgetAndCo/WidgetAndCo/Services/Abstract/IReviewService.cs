@@ -3,9 +3,8 @@ using WidgetAndCo.Models.Requests.Reviews;
 
 namespace WidgetAndCo.Services.Abstract;
 
-public interface IReviewService
+public interface IReviewService : IService<ReviewReadModel>
 {
     Task<IEnumerable<ReviewReadModel>> GetAllForProduct(Guid productId);
-    Task<ReviewReadModel> GetById(Guid reviewId);
     Task CreateReview(CreateReviewRequest request, Guid productId);
 }

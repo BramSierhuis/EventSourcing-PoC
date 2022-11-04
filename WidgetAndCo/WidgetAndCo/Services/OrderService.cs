@@ -7,6 +7,7 @@ using WidgetAndCo.Models.ReadModels;
 using WidgetAndCo.Models.Requests;
 using WidgetAndCo.Models.Requests.Orders;
 using WidgetAndCo.Repositories;
+using WidgetAndCo.Repositories.Abstract;
 using WidgetAndCo.Services.Abstract;
 
 namespace WidgetAndCo.Services;
@@ -14,13 +15,13 @@ namespace WidgetAndCo.Services;
 public class OrderService : IOrderService
 {
     private readonly IMessageBusFactory _busFactory;
-    private readonly OrderRepository _orderRepository;
-    private readonly OrderShippingTimeRepository _orderShippingTimeRepository;
-    private readonly ProductRepository _productRepository;
-    private readonly CustomerRepository _customerRepository;
+    private readonly IOrderRepository _orderRepository;
+    private readonly IOrderShippingTimeRepository _orderShippingTimeRepository;
+    private readonly IProductRepository _productRepository;
+    private readonly ICustomerRepository _customerRepository;
     private const string QueueName = "orderqueue";
 
-    public OrderService(IMessageBusFactory busFactory, OrderRepository orderRepository, ProductRepository productRepository, CustomerRepository customerRepository, OrderShippingTimeRepository orderShippingTimeRepository)
+    public OrderService(IMessageBusFactory busFactory, IOrderRepository orderRepository, IProductRepository productRepository, ICustomerRepository customerRepository, IOrderShippingTimeRepository orderShippingTimeRepository)
     {
         _busFactory = busFactory;
         _orderRepository = orderRepository;

@@ -1,4 +1,5 @@
 using WidgetAndCo.Functions.Repositories;
+using WidgetAndCo.Functions.Repositories.Abstract;
 using WidgetAndCo.Models.Events;
 using WidgetAndCo.Models.Events.Products;
 using WidgetAndCo.Models.Events.Reviews;
@@ -8,9 +9,9 @@ namespace WidgetAndCo.Functions.Projections;
 
 public class ReviewProjection : IProjection
 {
-    private readonly IRepository<ReviewReadModel> _repository;
+    private readonly IReviewRepository _repository;
 
-    public ReviewProjection(IRepository<ReviewReadModel> repository)
+    public ReviewProjection(IReviewRepository repository)
     {
         _repository = repository;
     }

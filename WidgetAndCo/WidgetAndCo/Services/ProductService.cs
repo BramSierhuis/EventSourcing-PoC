@@ -1,15 +1,11 @@
-using System.Web;
-using WidgetAndCo.Clients;
 using WidgetAndCo.Clients.Abstract;
 using WidgetAndCo.Exceptions;
 using WidgetAndCo.Extensions;
 using WidgetAndCo.Infrastructure;
-using WidgetAndCo.Models.Commands;
 using WidgetAndCo.Models.Commands.Products;
 using WidgetAndCo.Models.ReadModels;
-using WidgetAndCo.Models.Requests;
 using WidgetAndCo.Models.Requests.Products;
-using WidgetAndCo.Repositories;
+using WidgetAndCo.Repositories.Abstract;
 using WidgetAndCo.Services.Abstract;
 
 namespace WidgetAndCo.Services;
@@ -17,11 +13,11 @@ namespace WidgetAndCo.Services;
 public class ProductService : IProductService
 {
     private readonly IMessageBusFactory _busFactory;
-    private readonly ProductRepository _productRepository;
+    private readonly IProductRepository _productRepository;
     private readonly IProductImageClient _productImageClient;
     private const string QueueName = "productqueue";
     
-    public ProductService(IMessageBusFactory busFactory, ProductRepository productRepository, IProductImageClient productImageClient)
+    public ProductService(IMessageBusFactory busFactory, IProductRepository productRepository, IProductImageClient productImageClient)
     {
         _busFactory = busFactory;
         _productRepository = productRepository;

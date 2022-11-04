@@ -1,7 +1,6 @@
-using System.Linq.Expressions;
 using WidgetAndCo.Models.ReadModels;
 
-namespace WidgetAndCo.Functions.Repositories;
+namespace WidgetAndCo.Functions.Repositories.Abstract;
 
 public interface IRepository<T> where T : ReadModel
 {

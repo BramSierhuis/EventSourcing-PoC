@@ -4,6 +4,7 @@ using WidgetAndCo.Clients.Abstract;
 using WidgetAndCo.Contexts;
 using WidgetAndCo.Extensions;
 using WidgetAndCo.Repositories;
+using WidgetAndCo.Repositories.Abstract;
 using WidgetAndCo.Services;
 using WidgetAndCo.Services.Abstract;
 
@@ -12,11 +13,11 @@ var builder = WebApplication.CreateBuilder(args);
 builder.AddKeyVaultSecrets();
 
 builder.Services.AddDbContext<CosmosReadModelContext>();
-builder.Services.AddScoped<CustomerRepository>();
-builder.Services.AddScoped<OrderRepository>();
-builder.Services.AddScoped<ProductRepository>();
-builder.Services.AddScoped<OrderShippingTimeRepository>();
-builder.Services.AddScoped<ReviewRepository>();
+builder.Services.AddScoped<ICustomerRepository, CustomerRepository>();
+builder.Services.AddScoped<IOrderRepository, OrderRepository>();
+builder.Services.AddScoped<IProductRepository, ProductRepository>();
+builder.Services.AddScoped<IOrderShippingTimeRepository, OrderShippingTimeRepository>();
+builder.Services.AddScoped<IReviewRepository, ReviewRepository>();
 
 builder.Services.AddScoped<IProductImageClient, BlobClient>();
 

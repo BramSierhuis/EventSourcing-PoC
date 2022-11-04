@@ -1,4 +1,5 @@
 using WidgetAndCo.Functions.Repositories;
+using WidgetAndCo.Functions.Repositories.Abstract;
 using WidgetAndCo.Models.Events;
 using WidgetAndCo.Models.Events.Products;
 using WidgetAndCo.Models.ReadModels;
@@ -7,9 +8,9 @@ namespace WidgetAndCo.Functions.Projections;
 
 public class ProductProjection : IProjection
 {
-    private readonly IRepository<ProductReadModel> _repository;
+    private readonly IProductRepository _repository;
 
-    public ProductProjection(IRepository<ProductReadModel> repository)
+    public ProductProjection(IProductRepository repository)
     {
         _repository = repository;
     }
